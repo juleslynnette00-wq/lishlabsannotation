@@ -1,0 +1,2528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LISHLABS TASKS — Verified Online Work</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: {
+                            50:'#fefdfb',100:'#faf7f2',200:'#f3ede3',300:'#e7ddcd',400:'#d6c8b3',500:'#bfae95'
+                        },
+                        ink: {
+                            50:'#fafaf9',100:'#f5f5f4',200:'#e7e5e4',300:'#d6d3d1',400:'#a8a29e',
+                            500:'#78716c',600:'#57534e',700:'#44403c',800:'#292524',900:'#1c1917',950:'#0c0a09'
+                        },
+                        pink: {
+                            400:'#f472b6',500:'#ec4899',600:'#db2777',700:'#be185d'
+                        },
+                        lime: {
+                            300:'#bef264',400:'#a3e635',500:'#84cc16',600:'#65a30d'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Space Grotesk', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        *{box-sizing:border-box;margin:0;padding:0}
+        html,body{height:100%}
+        body{font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+        ::-webkit-scrollbar{width:8px;height:8px}
+        ::-webkit-scrollbar-track{background:transparent}
+        ::-webkit-scrollbar-thumb{background:#44403c;border-radius:6px}
+        .no-sb::-webkit-scrollbar{display:none}.no-sb{-ms-overflow-style:none;scrollbar-width:none}
+
+        /* ─── ANIMATIONS (different from reference) ─── */
+        @keyframes slideInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+        @keyframes slideInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+        @keyframes scaleIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+        @keyframes dropIn{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+        @keyframes pulseRing{0%{box-shadow:0 0 0 0 rgba(236,72,153,0.4)}70%{box-shadow:0 0 0 10px rgba(236,72,153,0)}100%{box-shadow:0 0 0 0 rgba(236,72,153,0)}}
+        @keyframes glowPulse{0%,100%{opacity:.5}50%{opacity:1}}
+        .a-slide-l{animation:slideInLeft .5s cubic-bezier(.2,.7,.3,1) both}
+        .a-slide-r{animation:slideInRight .4s cubic-bezier(.2,.7,.3,1) both}
+        .a-scale{animation:scaleIn .35s cubic-bezier(.2,.7,.3,1) both}
+        .a-drop{animation:dropIn .4s ease-out both}
+        .a-blink{animation:blink 1.4s infinite}
+        .a-spin{animation:spin 1s linear infinite}
+        .a-pulse-ring{animation:pulseRing 2s infinite}
+        .a-glow{animation:glowPulse 2s ease-in-out infinite}
+        .d1{animation-delay:.06s}.d2{animation-delay:.12s}.d3{animation-delay:.18s}.d4{animation-delay:.24s}.d5{animation-delay:.3s}.d6{animation-delay:.36s}
+
+        /* ─── LIGHT AUTH (paper background) ─── */
+        body.body-auth{background:#faf7f2;color:#1c1917}
+        .paper-texture{background-image:
+            radial-gradient(circle at 10% 20%, rgba(236,72,153,0.04) 0%, transparent 40%),
+            radial-gradient(circle at 90% 80%, rgba(132,204,22,0.05) 0%, transparent 40%);
+        }
+        .grid-paper{background-image:
+            linear-gradient(rgba(28,25,23,0.04) 1px,transparent 1px),
+            linear-gradient(90deg,rgba(28,25,23,0.04) 1px,transparent 1px);
+            background-size:28px 28px;
+        }
+
+        /* ─── DARK DASHBOARD ─── */
+        body.body-dash{background:#0c0a09;color:#fafaf9}
+        .surf{background:#1c1917;border:1px solid #292524}
+        .surf-2{background:#292524;border:1px solid #44403c}
+        .surf-3{background:#0c0a09;border:1px solid #292524}
+        .surf-pink{background:rgba(236,72,153,0.08);border:1px solid rgba(236,72,153,0.25)}
+        .surf-lime{background:rgba(163,230,53,0.08);border:1px solid rgba(163,230,53,0.25)}
+
+        /* ─── INPUTS ─── */
+        .inp{width:100%;padding:11px 14px;background:#0c0a09;border:1px solid #44403c;border-radius:8px;color:#fafaf9;font-size:14px;transition:all .15s;font-family:'Inter',sans-serif}
+        .inp:focus{outline:none;border-color:#ec4899;box-shadow:0 0 0 3px rgba(236,72,153,0.15)}
+        .inp::placeholder{color:#78716c}
+        .inp-l{width:100%;padding:11px 14px;background:#fff;border:1px solid #d6d3d1;border-radius:8px;color:#1c1917;font-size:14px;transition:all .15s}
+        .inp-l:focus{outline:none;border-color:#ec4899;box-shadow:0 0 0 3px rgba(236,72,153,0.15)}
+        .inp-l::placeholder{color:#a8a29e}
+
+        /* ─── BUTTONS ─── */
+        .btn-pink{padding:11px 22px;background:#ec4899;color:#fff;font-weight:700;border-radius:8px;border:none;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif}
+        .btn-pink:hover{background:#db2777;transform:translateY(-1px)}
+        .btn-pink:active{transform:translateY(0)}
+        .btn-lime{padding:11px 22px;background:#a3e635;color:#0c0a09;font-weight:700;border-radius:8px;border:none;cursor:pointer;transition:all .15s}
+        .btn-lime:hover{background:#84cc16;transform:translateY(-1px)}
+        .btn-ghost{padding:11px 22px;background:transparent;color:#fafaf9;font-weight:600;border-radius:8px;border:1px solid #44403c;cursor:pointer;transition:all .15s}
+        .btn-ghost:hover{background:#1c1917;border-color:#57534e}
+        .btn-red{padding:11px 22px;background:rgba(239,68,68,0.1);color:#f87171;font-weight:700;border-radius:8px;border:1px solid rgba(239,68,68,0.25);cursor:pointer;transition:all .15s}
+        .btn-red:hover{background:rgba(239,68,68,0.2)}
+
+        /* ─── NAV ITEMS ─── */
+        .nav-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;color:#a8a29e;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;border:1px solid transparent}
+        .nav-item:hover{background:#1c1917;color:#fafaf9}
+        .nav-item.active{background:#1c1917;color:#ec4899;border-color:#292524}
+        .nav-item.active .nav-icon{color:#ec4899}
+        .nav-icon{width:18px;text-align:center;font-size:13px;color:#78716c}
+        .nav-item.active .nav-icon{color:#ec4899}
+
+        /* ─── TOAST ─── */
+        .toast-c{position:fixed;top:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;max-width:340px}
+        .toast-i{padding:12px 16px;border-radius:8px;font-size:13px;font-weight:600;box-shadow:0 12px 38px rgba(0,0,0,0.4);pointer-events:auto;animation:slideInRight .3s ease-out;display:flex;align-items:center;gap:8px;transition:opacity .3s}
+
+        /* ─── BENTO TILES ─── */
+        .bento{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+        @media(max-width:1024px){.bento{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:640px){.bento{grid-template-columns:1fr}}
+        .tile{padding:20px;border-radius:12px;background:#1c1917;border:1px solid #292524;transition:all .2s}
+        .tile-hover:hover{border-color:#44403c;transform:translateY(-2px)}
+        .tile-pink{background:linear-gradient(135deg,rgba(236,72,153,0.12),rgba(236,72,153,0.02));border:1px solid rgba(236,72,153,0.25)}
+        .tile-lime{background:linear-gradient(135deg,rgba(163,230,53,0.12),rgba(163,230,53,0.02));border:1px solid rgba(163,230,53,0.25)}
+
+        /* ─── TASK ROW ─── */
+        .task-row{display:grid;grid-template-columns:48px 1fr auto auto auto;gap:16px;align-items:center;padding:14px 18px;border-bottom:1px solid #292524;cursor:pointer;transition:all .15s}
+        .task-row:hover{background:#1c1917}
+        .task-row:last-child{border-bottom:none}
+        @media(max-width:768px){
+            .task-row{grid-template-columns:40px 1fr auto;gap:10px;padding:12px}
+            .task-row .col-rate,.task-row .col-tag{display:none}
+        }
+
+        /* ─── CLOCK DISPLAY ─── */
+        .clock-disp{font-family:'Space Grotesk',sans-serif;font-size:56px;font-weight:700;letter-spacing:-2px;line-height:1;color:#a3e635}
+
+        /* ─── STATUS PILL ─── */
+        .pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em}
+        .pill-pink{background:rgba(236,72,153,0.12);color:#f472b6}
+        .pill-lime{background:rgba(163,230,53,0.12);color:#a3e635}
+        .pill-amber{background:rgba(251,191,36,0.12);color:#fbbf24}
+        .pill-red{background:rgba(239,68,68,0.12);color:#f87171}
+        .pill-muted{background:#292524;color:#a8a29e}
+
+        /* ─── PROGRESS BAR (different style) ─── */
+        .prog-track{height:6px;background:#292524;border-radius:3px;overflow:hidden;position:relative}
+        .prog-fill{height:100%;background:linear-gradient(90deg,#ec4899,#a3e635);border-radius:3px;transition:width 1s linear;position:relative}
+        .prog-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);animation:marquee 1.5s linear infinite}
+
+        /* ─── SIDEBAR (mobile drawer) ─── */
+        .sidebar{transition:transform .25s ease}
+        @media(max-width:1023px){
+            .sidebar{position:fixed;top:0;left:0;bottom:0;z-index:60;transform:translateX(-100%);width:260px}
+            .sidebar.open{transform:translateX(0)}
+            .sidebar-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:55;opacity:0;pointer-events:none;transition:opacity .25s}
+            .sidebar-backdrop.open{opacity:1;pointer-events:auto}
+        }
+
+        /* ─── CLOCK-IN DRAWER (slide from right) ─── */
+        .drawer{position:fixed;top:0;right:0;bottom:0;width:480px;max-width:100vw;background:#0c0a09;border-left:1px solid #292524;z-index:70;transform:translateX(100%);transition:transform .3s cubic-bezier(.2,.7,.3,1);overflow-y:auto}
+        .drawer.open{transform:translateX(0)}
+        .drawer-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:65;opacity:0;pointer-events:none;transition:opacity .3s}
+        .drawer-backdrop.open{opacity:1;pointer-events:auto}
+
+        /* ─── WORKSPACE OVERLAY (full-screen take-over) ─── */
+        .ws-overlay{position:fixed;inset:0;background:#0c0a09;z-index:80;display:none;flex-direction:column}
+        .ws-overlay.open{display:flex}
+
+        /* ─── LABEL BUTTONS ─── */
+        .label-btn{transition:all .15s}
+        .label-btn.sel{border-color:#ec4899!important;background:rgba(236,72,153,0.15)!important;color:#f472b6!important}
+
+        /* ─── PAY METHOD BTN ─── */
+        .pay-m-btn{transition:all .15s}
+        .pay-m-btn.sel{border-color:#ec4899!important;background:rgba(236,72,153,0.08)!important}
+
+        /* ─── ACCORDION ─── */
+        .acc-panel{max-height:0;overflow:hidden;transition:max-height .3s ease}
+        .acc-panel.open{max-height:2000px}
+        .acc-chev{transition:transform .25s}
+        .acc-chev.open{transform:rotate(90deg)}
+
+        /* ─── DOT INDICATOR ─── */
+        .dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+        .dot-live{background:#a3e635;box-shadow:0 0 8px rgba(163,230,53,0.7);animation:glowPulse 1.5s ease-in-out infinite}
+
+        /* ─── AVATAR ─── */
+        .av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#ec4899,#a3e635);display:flex;align-items:center;justify-content:center;color:#0c0a09;font-weight:700;font-size:13px;font-family:'Space Grotesk',sans-serif}
+
+        /* ─── CHART BARS (custom earnings viz) ─── */
+        .chart-bar{background:linear-gradient(180deg,#ec4899,#db2777);border-radius:3px 3px 0 0;transition:height .8s ease;min-height:2px}
+        .chart-bar.today{background:linear-gradient(180deg,#a3e635,#84cc16)}
+
+        /* ─── MOBILE NAV (top bar with hamburger) ─── */
+        .hamburger{display:flex;flex-direction:column;gap:4px;padding:8px;border-radius:6px;cursor:pointer}
+        .hamburger span{width:20px;height:2px;background:#fafaf9;border-radius:1px;transition:all .2s}
+
+        /* ─── MARQUEE for tasks ─── */
+        .marquee-wrap{overflow:hidden;white-space:nowrap}
+        .marquee-track{display:inline-flex;gap:32px;animation:marquee 30s linear infinite}
+
+        /* ─── NUMBER STAT ─── */
+        .stat-num{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-1px;line-height:1}
+    </style>
+</head>
+<body>
+
+<!-- TOAST CONTAINER (top-right, not top-center) -->
+<div id="toast-c" class="toast-c"></div>
+
+<!-- ============== APP ROOT ============== -->
+<div id="app">
+
+    <!-- ============================================== -->
+    <!-- ============= AUTH VIEW (LIGHT) ============= -->
+    <!-- ============================================== -->
+    <!-- Magazine-editorial layout: NOT split-screen, NOT centered card -->
+
+    <div id="view-auth" class="min-h-screen paper-texture relative">
+
+        <!-- Top thin bar -->
+        <div class="border-b border-ink-200 bg-paper-50/80 backdrop-blur-sm sticky top-0 z-10">
+            <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+                <!-- Logo lockup -->
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-lg bg-ink-900 flex items-center justify-center">
+                        <div class="w-4 h-4 grid grid-cols-2 gap-0.5">
+                            <div class="bg-pink-500 rounded-sm"></div>
+                            <div class="bg-lime-400 rounded-sm"></div>
+                            <div class="bg-lime-400 rounded-sm"></div>
+                            <div class="bg-pink-500 rounded-sm"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-display font-bold text-ink-900 text-sm leading-none tracking-tight">LISHLABS<span class="text-pink-500">/</span>TASKS</p>
+                        <p class="text-[9px] text-ink-500 uppercase tracking-[0.2em] mt-0.5">Verified Online Work</p>
+                    </div>
+                </div>
+                <!-- Right toggle -->
+                <div class="flex items-center gap-1 bg-ink-100 rounded-full p-1">
+                    <button id="auth-tab-reg" class="px-4 py-1.5 text-xs font-bold rounded-full transition-all bg-ink-900 text-paper-50" onclick="switchAuthTab('register')">Create Account</button>
+                    <button id="auth-tab-log" class="px-4 py-1.5 text-xs font-bold rounded-full transition-all text-ink-600" onclick="switchAuthTab('login')">Sign In</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial hero + form -->
+        <div class="max-w-7xl mx-auto px-6 lg:px-10 py-12 lg:py-20">
+
+            <!-- Magazine-style masthead -->
+            <div class="grid lg:grid-cols-12 gap-10 items-start">
+
+                <!-- LEFT: Editorial column -->
+                <div class="lg:col-span-7 a-slide-l">
+                    <!-- Issue line -->
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-pink-500">Issue No. 026</span>
+                        <span class="h-px flex-1 bg-ink-200"></span>
+                        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-ink-500">Nov 2026 · Kenya</span>
+                    </div>
+
+                    <!-- Display headline -->
+                    <h1 class="font-display font-bold text-ink-900 leading-[0.95] tracking-tight" style="font-size:clamp(48px,7vw,96px)">
+                        Work.<br>
+                        <span class="text-pink-500">Earn.</span><br>
+                        <span class="italic font-medium">Repeat.</span>
+                    </h1>
+
+                    <!-- Lead paragraph -->
+                    <p class="text-lg text-ink-700 leading-relaxed mt-8 max-w-xl">
+                        LISHLABS TASKS is a verified online work platform for Kenyan workers. Pick a task, set your payout method, clock in with your proxy &amp; worker code, and earn <span class="bg-lime-300 px-1.5 rounded font-semibold text-ink-900">KES 550–1,200 per hour</span>.
+                    </p>
+
+                    <!-- Editorial stats row -->
+                    <div class="mt-10 grid grid-cols-3 gap-4 max-w-md">
+                        <div class="border-l-2 border-pink-500 pl-3">
+                            <p class="stat-num text-3xl text-ink-900">18K+</p>
+                            <p class="text-[10px] uppercase tracking-wider text-ink-500 mt-1 font-semibold">Workers</p>
+                        </div>
+                        <div class="border-l-2 border-lime-400 pl-3">
+                            <p class="stat-num text-3xl text-ink-900">9.4M</p>
+                            <p class="text-[10px] uppercase tracking-wider text-ink-500 mt-1 font-semibold">KES Paid</p>
+                        </div>
+                        <div class="border-l-2 border-ink-900 pl-3">
+                            <p class="stat-num text-3xl text-ink-900">99.2%</p>
+                            <p class="text-[10px] uppercase tracking-wider text-ink-500 mt-1 font-semibold">On-Time</p>
+                        </div>
+                    </div>
+
+                    <!-- Numbered features -->
+                    <div class="mt-12 space-y-5 max-w-lg">
+                        <div class="flex gap-4">
+                            <span class="font-display font-bold text-pink-500 text-2xl">01</span>
+                            <div>
+                                <p class="font-bold text-ink-900 text-sm">Pick your task</p>
+                                <p class="text-xs text-ink-600 mt-0.5">15 categories from AI training to translation review, each with its own hourly rate.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="font-display font-bold text-pink-500 text-2xl">02</span>
+                            <div>
+                                <p class="font-bold text-ink-900 text-sm">Set up payout</p>
+                                <p class="text-xs text-ink-600 mt-0.5">M-Pesa, Airtel Money, bank transfer, or PayPal — choose how you get paid.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="font-display font-bold text-pink-500 text-2xl">03</span>
+                            <div>
+                                <p class="font-bold text-ink-900 text-sm">Clock in &amp; earn</p>
+                                <p class="text-xs text-ink-600 mt-0.5">Enter your proxy details &amp; worker verification code, start your shift, watch earnings accumulate live.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Auth form (asymmetric narrow column) -->
+                <div class="lg:col-span-5 a-slide-r">
+                    <div class="bg-white rounded-2xl border border-ink-200 shadow-sm p-7 lg:p-8 lg:sticky lg:top-24">
+
+                        <!-- Form header -->
+                        <div id="auth-header-reg">
+                            <span class="pill pill-pink mb-3"><span class="dot dot-live"></span> Open Registration</span>
+                            <h2 class="font-display font-bold text-2xl text-ink-900 leading-tight">Create your worker account</h2>
+                            <p class="text-xs text-ink-500 mt-1.5">Takes less than a minute. No fees to join.</p>
+                        </div>
+                        <div id="auth-header-log" class="hidden">
+                            <span class="pill pill-lime mb-3"><i class="fa-solid fa-arrow-right-to-bracket"></i> Returning Worker</span>
+                            <h2 class="font-display font-bold text-2xl text-ink-900 leading-tight">Welcome back</h2>
+                            <p class="text-xs text-ink-500 mt-1.5">Sign in to continue to your dashboard.</p>
+                        </div>
+
+                        <!-- REGISTER -->
+                        <form id="form-register" class="mt-6 space-y-4" onsubmit="handleRegister(event)">
+                            <div>
+                                <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Username</label>
+                                <input type="text" id="reg-username" required class="inp-l" placeholder="jane_wanjiku">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Email</label>
+                                <input type="email" id="reg-email" required class="inp-l" placeholder="you@email.com">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Phone</label>
+                                <div class="flex gap-2">
+                                    <span class="inline-flex items-center px-3 bg-ink-100 border border-ink-200 rounded-lg text-xs font-bold text-ink-700">+254</span>
+                                    <input type="tel" id="reg-phone" required pattern="[0-9]{9}" class="inp-l flex-1" placeholder="712345678">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Password</label>
+                                <input type="password" id="reg-password" required minlength="6" class="inp-l" placeholder="Min 6 characters">
+                            </div>
+                            <label class="flex items-start gap-2 pt-1">
+                                <input type="checkbox" id="reg-terms" required class="mt-0.5 w-4 h-4 rounded accent-pink-500">
+                                <span class="text-[11px] text-ink-600 leading-relaxed">I agree to LISHLABS TASKS Terms of Service and confirm I am 18+ years old.</span>
+                            </label>
+                            <button type="submit" class="btn-pink w-full flex items-center justify-center gap-2 text-sm">
+                                <i class="fa-solid fa-arrow-right"></i> Create Worker Account
+                            </button>
+                            <p class="text-[10px] text-ink-400 text-center">After registration, you'll set up your payout method to start working.</p>
+                        </form>
+
+                        <!-- LOGIN -->
+                        <form id="form-login" class="mt-6 space-y-4 hidden" onsubmit="handleLogin(event)">
+                            <div>
+                                <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Email</label>
+                                <input type="email" id="login-email" required class="inp-l" placeholder="you@email.com">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Password</label>
+                                <input type="password" id="login-password" required class="inp-l" placeholder="••••••••">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <label class="flex items-center gap-2 text-xs text-ink-600">
+                                    <input type="checkbox" class="w-3.5 h-3.5 rounded accent-pink-500"> Remember me
+                                </label>
+                                <button type="button" onclick="toast('Reset link sent (demo)','info')" class="text-xs text-pink-500 font-semibold hover:underline">Forgot?</button>
+                            </div>
+                            <button type="submit" class="btn-pink w-full flex items-center justify-center gap-2 text-sm">
+                                <i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Trust badges below form -->
+                    <div class="mt-5 flex items-center justify-center gap-4 text-[10px] text-ink-500">
+                        <span class="flex items-center gap-1"><i class="fa-solid fa-shield-halved text-pink-500"></i> SSL</span>
+                        <span class="w-1 h-1 rounded-full bg-ink-300"></span>
+                        <span class="flex items-center gap-1"><i class="fa-solid fa-lock text-pink-500"></i> Encrypted</span>
+                        <span class="w-1 h-1 rounded-full bg-ink-300"></span>
+                        <span class="flex items-center gap-1"><i class="fa-solid fa-certificate text-lime-500"></i> Verified</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marquee ticker at bottom -->
+            <div class="mt-16 border-y border-ink-200 py-3 marquee-wrap">
+                <div class="marquee-track text-xs font-bold uppercase tracking-[0.2em] text-ink-500">
+                    <span>● AI Training · KES 850/hr</span>
+                    <span>● Voice Recording · KES 1,100/hr</span>
+                    <span>● Translation Review · KES 1,200/hr</span>
+                    <span>● QA Testing · KES 1,000/hr</span>
+                    <span>● Form Filling · KES 550/hr</span>
+                    <span>● Web Research · KES 600/hr</span>
+                    <span>● AI Training · KES 850/hr</span>
+                    <span>● Voice Recording · KES 1,100/hr</span>
+                    <span>● Translation Review · KES 1,200/hr</span>
+                    <span>● QA Testing · KES 1,000/hr</span>
+                    <span>● Form Filling · KES 550/hr</span>
+                    <span>● Web Research · KES 600/hr</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- =========== DASHBOARD VIEW (DARK) =========== -->
+    <!-- ============================================== -->
+    <!-- Sidebar + main architecture (NOT top tabs) -->
+
+    <div id="view-dashboard" class="hidden min-h-screen flex">
+
+        <!-- Mobile sidebar backdrop -->
+        <div id="sidebar-backdrop" class="sidebar-backdrop lg:hidden" onclick="toggleSidebar()"></div>
+
+        <!-- SIDEBAR -->
+        <aside id="sidebar" class="sidebar w-[260px] bg-ink-950 border-r border-ink-800 flex flex-col flex-shrink-0">
+
+            <!-- Logo -->
+            <div class="px-5 py-5 border-b border-ink-800 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-lg bg-ink-900 border border-ink-700 flex items-center justify-center">
+                        <div class="w-4 h-4 grid grid-cols-2 gap-0.5">
+                            <div class="bg-pink-500 rounded-sm"></div>
+                            <div class="bg-lime-400 rounded-sm"></div>
+                            <div class="bg-lime-400 rounded-sm"></div>
+                            <div class="bg-pink-500 rounded-sm"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-display font-bold text-paper-50 text-sm leading-none tracking-tight">LISHLABS<span class="text-pink-400">/</span>TASKS</p>
+                        <p class="text-[8px] text-ink-500 uppercase tracking-[0.2em] mt-0.5">Worker Panel</p>
+                    </div>
+                </div>
+                <!-- Close (mobile only) -->
+                <button onclick="toggleSidebar()" class="lg:hidden text-ink-400 hover:text-paper-50 p-1"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Nav -->
+            <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto no-sb">
+                <p class="px-3 py-2 text-[9px] font-bold uppercase tracking-[0.2em] text-ink-600">Workspace</p>
+                <div class="nav-item active" data-nav="home" onclick="navTo('home')">
+                    <i class="fa-solid fa-house nav-icon"></i>
+                    <span>Home</span>
+                </div>
+                <div class="nav-item" data-nav="tasks" onclick="navTo('tasks')">
+                    <i class="fa-solid fa-list nav-icon"></i>
+                    <span>Job Board</span>
+                    <span class="ml-auto pill pill-pink" style="padding:2px 7px;font-size:9px">15</span>
+                </div>
+                <div class="nav-item" data-nav="earnings" onclick="navTo('earnings')">
+                    <i class="fa-solid fa-chart-line nav-icon"></i>
+                    <span>Wallet</span>
+                </div>
+                <div class="nav-item" data-nav="settings" onclick="navTo('settings')">
+                    <i class="fa-solid fa-sliders nav-icon"></i>
+                    <span>Profile</span>
+                </div>
+
+                <p class="px-3 py-2 mt-4 text-[9px] font-bold uppercase tracking-[0.2em] text-ink-600">Quick Actions</p>
+                <div class="nav-item" onclick="openClockInDrawer()">
+                    <i class="fa-solid fa-play nav-icon"></i>
+                    <span>Start Shift</span>
+                </div>
+
+                <!-- Live ticker in sidebar -->
+                <div class="mt-6 px-3">
+                    <div class="surf-3 rounded-lg p-3">
+                        <p class="text-[9px] font-bold uppercase tracking-wider text-ink-500 mb-2">Live Rate Ticker</p>
+                        <div class="space-y-1.5 text-[10px]">
+                            <div class="flex justify-between"><span class="text-ink-400">Translation</span><span class="font-mono text-lime-400">1,200</span></div>
+                            <div class="flex justify-between"><span class="text-ink-400">Voice Rec.</span><span class="font-mono text-lime-400">1,100</span></div>
+                            <div class="flex justify-between"><span class="text-ink-400">QA Testing</span><span class="font-mono text-lime-400">1,000</span></div>
+                            <div class="flex justify-between"><span class="text-ink-400">Video Label</span><span class="font-mono text-pink-400">950</span></div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- User card at bottom -->
+            <div class="px-3 py-3 border-t border-ink-800">
+                <div class="surf-2 rounded-lg p-3 flex items-center gap-2.5">
+                    <div class="av" id="sb-avatar">U</div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-xs font-bold text-paper-50 truncate" id="sb-name">User</p>
+                        <p class="text-[10px] text-ink-500 truncate" id="sb-email">user@email.com</p>
+                    </div>
+                    <button onclick="handleLogout()" class="text-ink-500 hover:text-red-400 transition p-1" title="Sign out"><i class="fa-solid fa-power-off text-xs"></i></button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN AREA -->
+        <div class="flex-1 flex flex-col min-w-0">
+
+            <!-- TOP BAR (minimal: hamburger + title + balance + clock-in btn) -->
+            <header class="border-b border-ink-800 px-4 lg:px-6 py-3 flex items-center justify-between gap-3 bg-ink-950 sticky top-0 z-30">
+                <div class="flex items-center gap-3 min-w-0">
+                    <!-- Mobile hamburger -->
+                    <button onclick="toggleSidebar()" class="lg:hidden hamburger flex-shrink-0">
+                        <span></span><span></span><span></span>
+                    </button>
+                    <div class="min-w-0">
+                        <p class="text-[9px] font-bold uppercase tracking-[0.2em] text-ink-500 hidden sm:block" id="topbar-section-label">Section</p>
+                        <h1 class="font-display font-bold text-base sm:text-lg text-paper-50 leading-none tracking-tight truncate" id="topbar-section-title">Home</h1>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 flex-shrink-0">
+                    <!-- Active session indicator -->
+                    <div id="sb-active-pill" class="hidden items-center gap-1.5 pill pill-lime"><span class="dot dot-live"></span> <span class="hidden sm:inline">On Shift</span></div>
+                    <!-- Balance -->
+                    <div class="surf-2 rounded-lg px-2.5 py-1.5 sm:py-2 flex items-center gap-1.5 sm:gap-2">
+                        <i class="fa-solid fa-wallet text-pink-400 text-xs"></i>
+                        <div>
+                            <p class="text-[8px] uppercase tracking-wider text-ink-500 leading-none hidden sm:block">Balance</p>
+                            <p class="font-mono font-bold text-paper-50 text-xs leading-tight" id="sb-balance">KES 0</p>
+                        </div>
+                    </div>
+                    <!-- Clock-in button -->
+                    <button onclick="openClockInDrawer()" class="btn-pink text-xs px-3 py-2 flex items-center gap-1.5">
+                        <i class="fa-solid fa-play"></i> <span class="hidden sm:inline">Start Shift</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- CONTENT SCROLL AREA -->
+            <main class="flex-1 overflow-y-auto p-4 lg:p-7">
+
+                <!-- ============ HOME (BENTO GRID) ============ -->
+                <section id="page-home" class="dash-page space-y-6 a-slide-l">
+
+                    <!-- Greeting row -->
+                    <div class="flex items-end justify-between flex-wrap gap-3">
+                        <div>
+                            <p class="text-xs text-ink-500" id="home-date">Today</p>
+                            <h2 class="font-display font-bold text-3xl text-paper-50 tracking-tight mt-1">Hello, <span id="home-username" class="text-pink-400">Worker</span></h2>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="pill pill-muted"><i class="fa-solid fa-clock"></i> <span id="home-time">--:--</span></span>
+                            <span class="pill pill-lime"><span class="dot dot-live"></span> Online</span>
+                        </div>
+                    </div>
+
+                    <!-- Payment setup banner (shows if no payment) -->
+                    <div id="payment-banner" class="surf-lime rounded-xl p-4 flex items-center gap-3 hidden">
+                        <div class="w-9 h-9 rounded-lg bg-lime-400/15 text-lime-400 flex items-center justify-center"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <div class="flex-1">
+                            <p class="text-sm font-bold text-lime-400">Set up your payout method</p>
+                            <p class="text-[11px] text-ink-400 mt-0.5">Required before you can clock in and start earning.</p>
+                        </div>
+                        <button onclick="navTo('settings')" class="btn-lime text-xs px-3 py-2">Configure</button>
+                    </div>
+
+                    <!-- BENTO GRID -->
+                    <div class="bento">
+                        <!-- Tile 1: Big balance tile (col-span-2) -->
+                        <div class="tile tile-pink col-span-2 row-span-2 relative overflow-hidden">
+                            <div class="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-pink-500/10 blur-2xl"></div>
+                            <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-pink-400">Total Balance</p>
+                            <p class="stat-num text-5xl text-paper-50 mt-3" id="stat-balance">KES 0</p>
+                            <div class="mt-6 flex items-center gap-4 text-xs">
+                                <div>
+                                    <p class="text-ink-500 text-[10px]">This Week</p>
+                                    <p class="font-mono font-bold text-lime-400" id="stat-week">KES 0</p>
+                                </div>
+                                <div class="w-px h-8 bg-ink-700"></div>
+                                <div>
+                                    <p class="text-ink-500 text-[10px]">Sessions</p>
+                                    <p class="font-mono font-bold text-paper-50" id="stat-sessions">0</p>
+                                </div>
+                            </div>
+                            <button onclick="navTo('earnings')" class="mt-6 text-xs text-pink-400 font-bold hover:underline flex items-center gap-1">View Wallet <i class="fa-solid fa-arrow-right text-[10px]"></i></button>
+                        </div>
+
+                        <!-- Tile 2: Hours -->
+                        <div class="tile tile-hover">
+                            <div class="flex items-center justify-between mb-2">
+                                <i class="fa-solid fa-clock text-lime-400"></i>
+                                <span class="text-[9px] font-bold text-ink-500 uppercase tracking-wider">All-time</span>
+                            </div>
+                            <p class="stat-num text-3xl text-paper-50" id="stat-hours">0h</p>
+                            <p class="text-[10px] text-ink-500 mt-1">Hours Worked</p>
+                        </div>
+
+                        <!-- Tile 3: Rating -->
+                        <div class="tile tile-hover">
+                            <div class="flex items-center justify-between mb-2">
+                                <i class="fa-solid fa-star text-pink-400"></i>
+                                <span class="text-[9px] font-bold text-ink-500 uppercase tracking-wider">Quality</span>
+                            </div>
+                            <p class="stat-num text-3xl text-paper-50" id="stat-rating">--</p>
+                            <p class="text-[10px] text-ink-500 mt-1">Score</p>
+                        </div>
+
+                        <!-- Tile 4: Active session (col-span-2) -->
+                        <div id="tile-active" class="tile tile-lime col-span-2 hidden">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="pill pill-lime"><span class="dot dot-live"></span> Active Session</span>
+                                <span class="text-[10px] font-mono text-ink-400" id="home-active-task">--</span>
+                            </div>
+                            <p class="stat-num text-3xl font-mono text-lime-400" id="home-active-timer">00:00:00</p>
+                            <div class="prog-track mt-4 mb-3">
+                                <div class="prog-fill" id="home-active-progress" style="width:0%"></div>
+                            </div>
+                            <div class="flex justify-between text-[10px] text-ink-400">
+                                <span>Rate: <span class="text-lime-400 font-bold" id="home-active-rate">KES 0/hr</span></span>
+                                <span>Earned: <span class="text-lime-400 font-bold" id="home-active-earned">KES 0</span></span>
+                            </div>
+                            <div class="flex gap-2 mt-4">
+                                <button onclick="openWorkspace()" class="btn-lime text-xs px-3 py-1.5 flex-1">Open Workspace</button>
+                                <button onclick="clockOut()" class="btn-red text-xs px-3 py-1.5">End Shift</button>
+                            </div>
+                        </div>
+
+                        <!-- Tile 5: Quick start (col-span-2) -->
+                        <div class="tile col-span-2 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-pink-500/15 flex items-center justify-center text-pink-400">
+                                <i class="fa-solid fa-bolt text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-bold text-paper-50 text-sm">Ready to work?</p>
+                                <p class="text-[11px] text-ink-500 mt-0.5">Pick a task and start your shift now.</p>
+                            </div>
+                            <button onclick="openClockInDrawer()" class="btn-pink text-xs px-3 py-2">Start</button>
+                        </div>
+
+                        <!-- Tile 6: Top paying tasks (col-span-2 row-span-2) -->
+                        <div class="tile col-span-2 row-span-2">
+                            <div class="flex items-center justify-between mb-3">
+                                <p class="font-bold text-paper-50 text-sm flex items-center gap-2"><i class="fa-solid fa-fire text-pink-400"></i> Top Paying Today</p>
+                                <button onclick="navTo('tasks')" class="text-[10px] text-pink-400 font-bold hover:underline">All →</button>
+                            </div>
+                            <div id="home-top-tasks" class="space-y-2"></div>
+                        </div>
+
+                        <!-- Tile 7: Recent sessions (col-span-2) -->
+                        <div class="tile col-span-2">
+                            <div class="flex items-center justify-between mb-3">
+                                <p class="font-bold text-paper-50 text-sm flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left text-ink-400"></i> Recent Sessions</p>
+                                <button onclick="navTo('earnings')" class="text-[10px] text-pink-400 font-bold hover:underline">All →</button>
+                            </div>
+                            <div id="home-recent"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ JOB BOARD (LIST VIEW) ============ -->
+                <section id="page-tasks" class="dash-page hidden space-y-5 a-slide-l">
+
+                    <div class="flex items-end justify-between flex-wrap gap-3">
+                        <div>
+                            <p class="text-xs text-ink-500">Browse available work</p>
+                            <h2 class="font-display font-bold text-3xl text-paper-50 tracking-tight mt-1">Job Board</h2>
+                        </div>
+                        <span class="pill pill-pink">15 tasks · KES 550–1,200/hr</span>
+                    </div>
+
+                    <!-- Filter bar -->
+                    <div class="surf rounded-xl p-3 flex items-center gap-2 flex-wrap">
+                        <div class="flex-1 min-w-[200px] relative">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-ink-500 text-xs"></i>
+                            <input type="text" id="task-search" oninput="filterTasks()" class="inp pl-9 py-2 text-sm" placeholder="Search tasks...">
+                        </div>
+                        <select id="task-sort" onchange="filterTasks()" class="inp py-2 text-sm cursor-pointer w-auto">
+                            <option value="default">Default</option>
+                            <option value="high">Highest pay</option>
+                            <option value="low">Lowest pay</option>
+                            <option value="name">A → Z</option>
+                        </select>
+                        <div class="hidden sm:flex items-center gap-1 px-3 py-2 surf-2 rounded-lg">
+                            <span class="dot dot-live"></span>
+                            <span class="text-[10px] text-ink-400 font-semibold">All tasks live</span>
+                        </div>
+                    </div>
+
+                    <!-- Task list (table-like rows) -->
+                    <div class="surf rounded-xl overflow-hidden">
+                        <!-- Header row -->
+                        <div class="hidden md:grid grid-cols-[48px_1fr_auto_auto_auto] gap-4 px-[18px] py-3 border-b border-ink-800 text-[9px] font-bold uppercase tracking-[0.15em] text-ink-500 bg-ink-900/50">
+                            <span></span>
+                            <span>Task</span>
+                            <span class="col-rate">Rate</span>
+                            <span class="col-tag">Type</span>
+                            <span></span>
+                        </div>
+                        <div id="task-list"></div>
+                    </div>
+                </section>
+
+                <!-- ============ WALLET (EARNINGS) ============ -->
+                <section id="page-earnings" class="dash-page hidden space-y-5 a-slide-l">
+
+                    <div class="flex items-end justify-between flex-wrap gap-3">
+                        <div>
+                            <p class="text-xs text-ink-500">Track your income &amp; payouts</p>
+                            <h2 class="font-display font-bold text-3xl text-paper-50 tracking-tight mt-1">Wallet</h2>
+                        </div>
+                        <button onclick="exportHistory()" class="btn-ghost text-xs px-3 py-2 flex items-center gap-1.5"><i class="fa-solid fa-download"></i> Export CSV</button>
+                    </div>
+
+                    <!-- Top stat tiles -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="tile tile-pink">
+                            <p class="text-[9px] uppercase tracking-wider text-pink-400 font-bold">Total Earned</p>
+                            <p class="stat-num text-2xl text-paper-50 mt-2" id="earn-total">KES 0</p>
+                        </div>
+                        <div class="tile">
+                            <p class="text-[9px] uppercase tracking-wider text-ink-500 font-bold">This Week</p>
+                            <p class="stat-num text-2xl text-lime-400 mt-2" id="earn-week">KES 0</p>
+                        </div>
+                        <div class="tile">
+                            <p class="text-[9px] uppercase tracking-wider text-ink-500 font-bold">Pending</p>
+                            <p class="stat-num text-2xl text-amber-400 mt-2" id="earn-pending">KES 0</p>
+                        </div>
+                        <div class="tile">
+                            <p class="text-[9px] uppercase tracking-wider text-ink-500 font-bold">Paid Out</p>
+                            <p class="stat-num text-2xl text-paper-50 mt-2" id="earn-paid">KES 0</p>
+                        </div>
+                    </div>
+
+                    <!-- Weekly chart -->
+                    <div class="tile">
+                        <div class="flex items-center justify-between mb-4">
+                            <p class="font-bold text-paper-50 text-sm">Last 7 Days</p>
+                            <span class="text-[10px] text-ink-500">Earnings per day</span>
+                        </div>
+                        <div class="flex items-end gap-2 h-32" id="weekly-chart"></div>
+                        <div class="grid grid-cols-7 gap-2 mt-2 text-[10px] text-ink-500 text-center font-semibold" id="weekly-labels"></div>
+                    </div>
+
+                    <!-- Payment method card -->
+                    <div class="tile">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="font-bold text-paper-50 text-sm flex items-center gap-2"><i class="fa-solid fa-credit-card text-ink-400"></i> Payout Method</p>
+                            <button onclick="navTo('settings')" class="text-[10px] text-pink-400 font-bold hover:underline">Change</button>
+                        </div>
+                        <div id="earning-pay-method" class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-ink-800 flex items-center justify-center text-ink-500"><i class="fa-regular fa-circle-question"></i></div>
+                            <div>
+                                <p class="text-sm font-semibold text-ink-300">Not configured</p>
+                                <p class="text-[10px] text-ink-500">Set up in Profile</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Session history -->
+                    <div class="surf rounded-xl overflow-hidden">
+                        <div class="px-4 py-3 border-b border-ink-800 flex items-center justify-between">
+                            <p class="font-bold text-paper-50 text-sm">Session History</p>
+                            <span class="pill pill-muted" id="history-count">0 records</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs">
+                                <thead>
+                                    <tr class="bg-ink-900/50 text-ink-500 uppercase tracking-wider text-[9px]">
+                                        <th class="text-left px-4 py-2.5 font-bold">Date</th>
+                                        <th class="text-left px-4 py-2.5 font-bold">Task</th>
+                                        <th class="text-left px-4 py-2.5 font-bold hidden sm:table-cell">Rate</th>
+                                        <th class="text-left px-4 py-2.5 font-bold">Hours</th>
+                                        <th class="text-left px-4 py-2.5 font-bold">Earned</th>
+                                        <th class="text-left px-4 py-2.5 font-bold">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="earnings-table-body">
+                                    <tr><td colspan="6" class="p-8 text-center text-ink-600"><i class="fa-regular fa-receipt text-2xl block mb-2 opacity-30"></i>No history yet</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ PROFILE (ACCORDION) ============ -->
+                <section id="page-settings" class="dash-page hidden space-y-5 a-slide-l">
+
+                    <div>
+                        <p class="text-xs text-ink-500">Manage your account &amp; payout</p>
+                        <h2 class="font-display font-bold text-3xl text-paper-50 tracking-tight mt-1">Profile</h2>
+                    </div>
+
+                    <!-- Profile summary card -->
+                    <div class="tile flex items-center gap-4">
+                        <div class="av" style="width:56px;height:56px;font-size:20px" id="set-avatar">U</div>
+                        <div class="flex-1">
+                            <p class="font-display font-bold text-xl text-paper-50" id="set-name">User</p>
+                            <p class="text-xs text-ink-500" id="set-email-display">user@email.com</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="pill pill-lime"><i class="fa-solid fa-circle-check"></i> Active</span>
+                                <span class="pill pill-muted" id="set-member-since">Member · --</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accordion sections -->
+                    <div class="space-y-3">
+
+                        <!-- Profile info -->
+                        <div class="surf rounded-xl overflow-hidden">
+                            <button onclick="toggleAccordion(this)" class="w-full px-4 py-4 flex items-center justify-between text-left">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-user text-pink-400"></i>
+                                    <div>
+                                        <p class="font-bold text-paper-50 text-sm">Personal Information</p>
+                                        <p class="text-[10px] text-ink-500">Username, email, phone</p>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-chevron-right acc-chev text-ink-500"></i>
+                            </button>
+                            <div class="acc-panel">
+                                <div class="px-4 pb-4 space-y-3">
+                                    <div>
+                                        <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Username</label>
+                                        <input type="text" id="set-username" class="inp" placeholder="Your username">
+                                    </div>
+                                    <div>
+                                        <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Email</label>
+                                        <input type="email" id="set-email" class="inp" placeholder="Your email" disabled>
+                                    </div>
+                                    <div>
+                                        <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Phone</label>
+                                        <input type="tel" id="set-phone" class="inp" placeholder="+254 712345678">
+                                    </div>
+                                    <button onclick="saveProfile()" class="btn-pink text-xs flex items-center gap-2"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payment methods -->
+                        <div class="surf rounded-xl overflow-hidden">
+                            <button onclick="toggleAccordion(this)" class="w-full px-4 py-4 flex items-center justify-between text-left">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-credit-card text-lime-400"></i>
+                                    <div>
+                                        <p class="font-bold text-paper-50 text-sm">Payout Method <span id="pay-method-badge" class="pill pill-muted ml-2" style="padding:2px 7px;font-size:9px">Not set</span></p>
+                                        <p class="text-[10px] text-ink-500">M-Pesa · Airtel · Bank · PayPal</p>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-chevron-right acc-chev text-ink-500"></i>
+                            </button>
+                            <div class="acc-panel">
+                                <div class="px-4 pb-4">
+                                    <!-- Payment type selector (grid) -->
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+                                        <button id="pay-mpesa" class="pay-m-btn surf-2 p-3 rounded-lg text-center border-2 border-transparent" onclick="selectPayMethod('mpesa')">
+                                            <i class="fa-solid fa-mobile-screen-button text-green-400 text-lg mb-1"></i>
+                                            <p class="text-[11px] font-bold text-paper-50">M-Pesa</p>
+                                            <p class="text-[9px] text-ink-500">Safaricom</p>
+                                        </button>
+                                        <button id="pay-airtel" class="pay-m-btn surf-2 p-3 rounded-lg text-center border-2 border-transparent" onclick="selectPayMethod('airtel')">
+                                            <i class="fa-solid fa-mobile text-red-400 text-lg mb-1"></i>
+                                            <p class="text-[11px] font-bold text-paper-50">Airtel</p>
+                                            <p class="text-[9px] text-ink-500">Airtel Money</p>
+                                        </button>
+                                        <button id="pay-bank" class="pay-m-btn surf-2 p-3 rounded-lg text-center border-2 border-transparent" onclick="selectPayMethod('bank')">
+                                            <i class="fa-solid fa-building-columns text-blue-400 text-lg mb-1"></i>
+                                            <p class="text-[11px] font-bold text-paper-50">Bank</p>
+                                            <p class="text-[9px] text-ink-500">Transfer</p>
+                                        </button>
+                                        <button id="pay-paypal" class="pay-m-btn surf-2 p-3 rounded-lg text-center border-2 border-transparent" onclick="selectPayMethod('paypal')">
+                                            <i class="fa-brands fa-paypal text-indigo-400 text-lg mb-1"></i>
+                                            <p class="text-[11px] font-bold text-paper-50">PayPal</p>
+                                            <p class="text-[9px] text-ink-500">USD</p>
+                                        </button>
+                                    </div>
+
+                                    <!-- M-Pesa -->
+                                    <div id="mpesa-details" class="hidden space-y-3 p-3 surf-2 rounded-lg">
+                                        <div>
+                                            <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Phone Number</label>
+                                            <div class="flex gap-2">
+                                                <span class="inline-flex items-center px-3 bg-ink-900 border border-ink-700 rounded-lg text-xs font-bold text-ink-400">+254</span>
+                                                <input type="tel" id="mpesa-phone" class="inp flex-1" placeholder="712345678">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Registered Name</label>
+                                            <input type="text" id="mpesa-name" class="inp" placeholder="Name on M-Pesa account">
+                                        </div>
+                                        <button onclick="savePaymentMethod()" class="btn-pink text-xs flex items-center gap-2"><i class="fa-solid fa-check"></i> Save</button>
+                                    </div>
+
+                                    <!-- Airtel -->
+                                    <div id="airtel-details" class="hidden space-y-3 p-3 surf-2 rounded-lg">
+                                        <div>
+                                            <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Phone Number</label>
+                                            <div class="flex gap-2">
+                                                <span class="inline-flex items-center px-3 bg-ink-900 border border-ink-700 rounded-lg text-xs font-bold text-ink-400">+254</span>
+                                                <input type="tel" id="airtel-phone" class="inp flex-1" placeholder="712345678">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Registered Name</label>
+                                            <input type="text" id="airtel-name" class="inp" placeholder="Name on Airtel account">
+                                        </div>
+                                        <button onclick="savePaymentMethod()" class="btn-pink text-xs flex items-center gap-2"><i class="fa-solid fa-check"></i> Save</button>
+                                    </div>
+
+                                    <!-- Bank -->
+                                    <div id="bank-details" class="hidden space-y-3 p-3 surf-2 rounded-lg">
+                                        <div>
+                                            <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Bank Name</label>
+                                            <select id="bank-name" class="inp cursor-pointer">
+                                                <option value="">Select bank</option>
+                                                <option>KCB Bank</option>
+                                                <option>Equity Bank</option>
+                                                <option>Co-operative Bank</option>
+                                                <option>NCBA Bank</option>
+                                                <option>ABSA Bank</option>
+                                                <option>Stanbic Bank</option>
+                                                <option>DTB Bank</option>
+                                                <option>National Bank</option>
+                                                <option>Family Bank</option>
+                                                <option>Gulf Bank</option>
+                                                <option>Standard Chartered</option>
+                                            </select>
+                                        </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                            <div>
+                                                <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Account Number</label>
+                                                <input type="text" id="bank-account" class="inp font-mono" placeholder="1234567890">
+                                            </div>
+                                            <div>
+                                                <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Branch Code</label>
+                                                <input type="text" id="bank-branch" class="inp font-mono" placeholder="01010">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Account Name</label>
+                                            <input type="text" id="bank-acct-name" class="inp" placeholder="Name on bank account">
+                                        </div>
+                                        <button onclick="savePaymentMethod()" class="btn-pink text-xs flex items-center gap-2"><i class="fa-solid fa-check"></i> Save</button>
+                                    </div>
+
+                                    <!-- PayPal -->
+                                    <div id="paypal-details" class="hidden space-y-3 p-3 surf-2 rounded-lg">
+                                        <div>
+                                            <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">PayPal Email</label>
+                                            <input type="email" id="paypal-email" class="inp" placeholder="you@email.com">
+                                        </div>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                            <div>
+                                                <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Country</label>
+                                                <select id="paypal-country" class="inp cursor-pointer">
+                                                    <option value="">Select country</option>
+                                                    <option>Kenya</option>
+                                                    <option>Uganda</option>
+                                                    <option>Tanzania</option>
+                                                    <option>Rwanda</option>
+                                                    <option>Nigeria</option>
+                                                    <option>Ghana</option>
+                                                    <option>South Africa</option>
+                                                    <option>Other</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Account Holder</label>
+                                                <input type="text" id="paypal-name" class="inp" placeholder="Full name">
+                                            </div>
+                                        </div>
+                                        <p class="text-[10px] text-ink-500">PayPal payouts in USD, processed within 24-48 hours.</p>
+                                        <button onclick="savePaymentMethod()" class="btn-pink text-xs flex items-center gap-2"><i class="fa-solid fa-check"></i> Save</button>
+                                    </div>
+
+                                    <!-- Current method -->
+                                    <div id="current-pay-display" class="mt-3 hidden p-3 surf-pink rounded-lg">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <i class="fa-solid fa-circle-check text-pink-400"></i>
+                                            <span class="text-xs font-bold text-pink-400">Method Configured</span>
+                                        </div>
+                                        <p class="text-sm text-paper-50 font-semibold" id="current-pay-text">--</p>
+                                        <p class="text-[10px] text-ink-400" id="current-pay-detail">--</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Verification status -->
+                        <div class="surf rounded-xl overflow-hidden">
+                            <button onclick="toggleAccordion(this)" class="w-full px-4 py-4 flex items-center justify-between text-left">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-shield-halved text-pink-400"></i>
+                                    <div>
+                                        <p class="font-bold text-paper-50 text-sm">Verification Status</p>
+                                        <p class="text-[10px] text-ink-500">Worker code &amp; proxy status</p>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-chevron-right acc-chev text-ink-500"></i>
+                            </button>
+                            <div class="acc-panel">
+                                <div class="px-4 pb-4 grid grid-cols-1 md:grid-cols-3 gap-3">
+                                    <div class="surf-2 p-3 rounded-lg">
+                                        <p class="text-[9px] uppercase tracking-wider text-ink-500 font-bold">Worker Code</p>
+                                        <p class="text-sm font-mono text-paper-50 mt-1" id="verification-code-display">Not issued</p>
+                                    </div>
+                                    <div class="surf-2 p-3 rounded-lg">
+                                        <p class="text-[9px] uppercase tracking-wider text-ink-500 font-bold">Proxy Status</p>
+                                        <p class="text-sm font-bold text-paper-50 mt-1" id="proxy-status-display">Not set</p>
+                                    </div>
+                                    <div class="surf-2 p-3 rounded-lg">
+                                        <p class="text-[9px] uppercase tracking-wider text-ink-500 font-bold">Account</p>
+                                        <p class="text-sm font-bold text-lime-400 mt-1">Active</p>
+                                    </div>
+                                    <p class="text-[10px] text-ink-500 md:col-span-3">Codes issued by LISHLABS management after proxy payment. Format: <span class="font-mono text-pink-400 font-bold">LL-XXXXXX</span>.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Danger zone -->
+                        <div class="surf rounded-xl overflow-hidden border-red-500/20">
+                            <button onclick="toggleAccordion(this)" class="w-full px-4 py-4 flex items-center justify-between text-left">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-triangle-exclamation text-red-400"></i>
+                                    <div>
+                                        <p class="font-bold text-red-400 text-sm">Danger Zone</p>
+                                        <p class="text-[10px] text-ink-500">Clear all local data</p>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-chevron-right acc-chev text-ink-500"></i>
+                            </button>
+                            <div class="acc-panel">
+                                <div class="px-4 pb-4">
+                                    <p class="text-xs text-ink-400 mb-3">This will permanently remove your account, sessions, and payout configuration from this device.</p>
+                                    <button onclick="clearAllData()" class="btn-red text-xs flex items-center gap-2"><i class="fa-solid fa-trash"></i> Clear All Data</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- ======== CLOCK-IN DRAWER (RIGHT SLIDE) ====== -->
+    <!-- ============================================== -->
+
+    <div id="drawer-backdrop" class="drawer-backdrop" onclick="closeClockInDrawer()"></div>
+    <aside id="clockin-drawer" class="drawer">
+
+        <!-- Drawer header -->
+        <div class="px-6 py-5 border-b border-ink-800 flex items-center justify-between sticky top-0 bg-ink-950 z-10">
+            <div>
+                <p class="text-[9px] font-bold uppercase tracking-[0.2em] text-pink-400">Start a shift</p>
+                <h2 class="font-display font-bold text-xl text-paper-50 leading-none mt-1">Clock In</h2>
+            </div>
+            <button onclick="closeClockInDrawer()" class="text-ink-500 hover:text-paper-50 p-2 rounded-lg hover:bg-ink-900 transition"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!-- Already working state -->
+        <div id="drawer-already-working" class="hidden px-6 py-8 text-center">
+            <i class="fa-solid fa-circle-check text-lime-400 text-4xl mb-3"></i>
+            <p class="font-bold text-paper-50">You're on a shift</p>
+            <p class="text-xs text-ink-500 mt-1">End your current session before starting another.</p>
+            <div class="flex gap-2 mt-4">
+                <button onclick="closeClockInDrawer();openWorkspace()" class="btn-lime text-xs flex-1">Open Workspace</button>
+                <button onclick="clockOut()" class="btn-red text-xs flex-1">End Shift</button>
+            </div>
+        </div>
+
+        <!-- Drawer body -->
+        <div id="drawer-body" class="px-6 py-5 space-y-5">
+
+            <!-- Payment not set -->
+            <div id="drawer-payment-needed" class="surf-lime rounded-xl p-4 hidden">
+                <div class="flex items-center gap-2 mb-2">
+                    <i class="fa-solid fa-triangle-exclamation text-lime-400"></i>
+                    <span class="text-xs font-bold text-lime-400">Payout method required</span>
+                </div>
+                <p class="text-[11px] text-ink-400 mb-3">Set up your payout method in Profile before clocking in.</p>
+                <button onclick="closeClockInDrawer();navTo('settings')" class="btn-lime text-xs px-3 py-2">Set Up Payout</button>
+            </div>
+
+            <!-- Step 1: Task -->
+            <div>
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="font-mono text-xs font-bold text-pink-400">01</span>
+                    <span class="text-xs font-bold text-paper-50 uppercase tracking-wider">Select Task</span>
+                </div>
+                <select id="clockin-task" class="inp cursor-pointer" onchange="onTaskSelect()">
+                    <option value="">-- Choose a task --</option>
+                </select>
+                <div id="selected-task-info" class="hidden mt-2 surf-pink rounded-lg p-3">
+                    <div class="flex items-center justify-between">
+                        <div class="min-w-0">
+                            <p class="text-xs font-bold text-pink-400 uppercase tracking-wider truncate" id="sel-task-name">--</p>
+                            <p class="text-[10px] text-ink-400 mt-0.5" id="sel-task-desc">--</p>
+                        </div>
+                        <div class="text-right ml-3 flex-shrink-0">
+                            <p class="font-display font-bold text-xl text-lime-400" id="sel-task-rate">KES 0</p>
+                            <p class="text-[9px] text-ink-500 uppercase tracking-wider">per hour</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Duration -->
+            <div>
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="font-mono text-xs font-bold text-pink-400">02</span>
+                    <span class="text-xs font-bold text-paper-50 uppercase tracking-wider">Duration</span>
+                </div>
+                <div class="grid grid-cols-3 gap-2">
+                    <button class="time-opt surf-2 py-3 rounded-lg text-center border-2 border-transparent" data-hours="1" onclick="selectTime(1)">
+                        <p class="font-display font-bold text-lg text-paper-50">1h</p>
+                        <p class="text-[10px] font-mono text-lime-400" id="time-1-rate">KES --</p>
+                    </button>
+                    <button class="time-opt surf-2 py-3 rounded-lg text-center border-2 border-transparent" data-hours="2" onclick="selectTime(2)">
+                        <p class="font-display font-bold text-lg text-paper-50">2h</p>
+                        <p class="text-[10px] font-mono text-lime-400" id="time-2-rate">KES --</p>
+                    </button>
+                    <button class="time-opt surf-2 py-3 rounded-lg text-center border-2 border-transparent" data-hours="4" onclick="selectTime(4)">
+                        <p class="font-display font-bold text-lg text-paper-50">4h</p>
+                        <p class="text-[10px] font-mono text-lime-400" id="time-4-rate">KES --</p>
+                    </button>
+                </div>
+                <div class="mt-2 surf-pink rounded-lg p-2.5 flex items-center justify-between">
+                    <span class="text-[10px] text-ink-300 uppercase tracking-wider font-bold">Total Est.</span>
+                    <span class="font-display font-bold text-lg text-lime-400" id="selected-total-earn">KES 0</span>
+                </div>
+            </div>
+
+            <!-- Step 3: Proxy & verification -->
+            <div>
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="font-mono text-xs font-bold text-pink-400">03</span>
+                    <span class="text-xs font-bold text-paper-50 uppercase tracking-wider">Proxy &amp; Verification</span>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="col-span-2">
+                            <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Proxy Address</label>
+                            <input type="text" id="proxy-address" class="inp font-mono text-xs" placeholder="102.89.34.12">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Port</label>
+                            <input type="text" id="proxy-port" class="inp font-mono text-xs" placeholder="8080">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Username <span class="text-ink-600 normal-case">(opt)</span></label>
+                            <input type="text" id="proxy-user" class="inp font-mono text-xs" placeholder="user">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Password <span class="text-ink-600 normal-case">(opt)</span></label>
+                            <input type="password" id="proxy-pass" class="inp font-mono text-xs" placeholder="••••">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-ink-500 mb-1.5 block">Worker Verification Code</label>
+                        <input type="text" id="worker-vcode" class="inp font-mono uppercase tracking-wider text-sm" placeholder="LL-XXXXXX">
+                        <p class="text-[10px] text-ink-500 mt-1">Format: <span class="font-mono text-pink-400 font-bold">LL-XXXXXX</span> · Issued after proxy payment</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <button onclick="handleClockIn()" class="btn-pink w-full py-3.5 flex items-center justify-center gap-2 text-sm sticky bottom-0 bg-ink-950">
+                <i class="fa-solid fa-play"></i> Clock In &amp; Start Shift
+            </button>
+        </div>
+    </aside>
+
+    <!-- ============================================== -->
+    <!-- ===== WORKSPACE OVERLAY (FULL-SCREEN) ====== -->
+    <!-- ============================================== -->
+
+    <div id="workspace-overlay" class="ws-overlay">
+
+        <!-- Top bar -->
+        <div class="border-b border-ink-800 px-4 lg:px-6 py-3 flex items-center justify-between bg-ink-950">
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-ink-900 border border-ink-700 flex items-center justify-center">
+                        <div class="w-3.5 h-3.5 grid grid-cols-2 gap-0.5">
+                            <div class="bg-pink-500 rounded-sm"></div>
+                            <div class="bg-lime-400 rounded-sm"></div>
+                            <div class="bg-lime-400 rounded-sm"></div>
+                            <div class="bg-pink-500 rounded-sm"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-ink-500 uppercase tracking-wider">Live Shift</p>
+                        <p class="text-sm font-bold text-paper-50 leading-none" id="ws-task-name">--</p>
+                    </div>
+                </div>
+                <span class="pill pill-lime hidden sm:inline-flex"><span class="dot dot-live"></span> Recording</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <p class="text-[9px] text-ink-500 uppercase tracking-wider">Earned</p>
+                    <p class="font-mono font-bold text-lime-400 text-sm leading-none" id="ws-earned">KES 0</p>
+                </div>
+                <button onclick="clockOut()" class="btn-red text-xs px-4 py-2 flex items-center gap-1.5">
+                    <i class="fa-solid fa-stop"></i> End Shift
+                </button>
+            </div>
+        </div>
+
+        <!-- Split-pane body -->
+        <div class="flex-1 flex flex-col lg:flex-row overflow-hidden">
+
+            <!-- LEFT: Task interface -->
+            <div class="flex-1 overflow-y-auto p-4 lg:p-6">
+                <!-- Big timer -->
+                <div class="surf rounded-xl p-5 mb-4 relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 rounded-full bg-pink-500/8 blur-2xl a-glow"></div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="pill pill-pink"><i class="fa-solid fa-clock"></i> Elapsed</span>
+                        <span class="text-[10px] font-mono text-ink-500" id="ws-progress-text">0%</span>
+                    </div>
+                    <p class="clock-disp" id="ws-timer">00:00:00</p>
+                    <div class="prog-track mt-4">
+                        <div class="prog-fill" id="ws-progress" style="width:0%"></div>
+                    </div>
+                    <div class="flex justify-between mt-2 text-[10px] text-ink-500">
+                        <span>Started: <span id="ws-start">--</span></span>
+                        <span>Rate: <span class="text-lime-400 font-bold" id="ws-rate">KES 0/hr</span></span>
+                        <span>Target: <span id="ws-target">--</span></span>
+                    </div>
+                </div>
+
+                <!-- Current subtask -->
+                <div class="surf rounded-xl p-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <p class="font-bold text-paper-50 text-sm">Current Subtask</p>
+                        <span class="font-mono text-[10px] text-ink-500" id="ws-counter">0 / 0</span>
+                    </div>
+                    <div id="ws-task-content"></div>
+                    <div class="flex gap-2 mt-4">
+                        <button onclick="skipTask()" class="btn-ghost flex-1 text-xs flex items-center justify-center gap-1.5"><i class="fa-solid fa-forward"></i> Skip</button>
+                        <button onclick="submitTask()" class="btn-pink flex-1 text-xs flex items-center justify-center gap-1.5"><i class="fa-solid fa-check"></i> Submit</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Live sidebar -->
+            <div class="lg:w-80 border-t lg:border-t-0 lg:border-l border-ink-800 bg-ink-950 p-4 space-y-3 overflow-y-auto">
+
+                <!-- Earnings tracker -->
+                <div class="tile tile-lime">
+                    <p class="text-[9px] uppercase tracking-wider text-lime-400 font-bold">Live Earning</p>
+                    <p class="stat-num text-3xl text-lime-400 mt-2" id="ws-live-earned">KES 0</p>
+                    <p class="text-[10px] text-ink-400 mt-1">Accumulating in real-time</p>
+                </div>
+
+                <!-- Subtasks done -->
+                <div class="tile">
+                    <p class="text-[9px] uppercase tracking-wider text-ink-500 font-bold">Subtasks Done</p>
+                    <p class="stat-num text-3xl text-paper-50 mt-2" id="ws-tasks-done">0</p>
+                    <p class="text-[10px] text-ink-500 mt-1">of <span id="ws-total">0</span> total</p>
+                </div>
+
+                <!-- Mini progress chart -->
+                <div class="tile">
+                    <p class="text-[9px] uppercase tracking-wider text-ink-500 font-bold mb-2">Progress</p>
+                    <div class="prog-track mb-1.5">
+                        <div class="prog-fill" id="ws-tasks-progress" style="width:0%"></div>
+                    </div>
+                    <p class="text-[10px] text-ink-500 text-right" id="ws-tasks-percent">0%</p>
+                </div>
+
+                <!-- Worker info -->
+                <div class="surf-2 rounded-lg p-3">
+                    <p class="text-[9px] uppercase tracking-wider text-ink-500 font-bold mb-2">Worker</p>
+                    <div class="space-y-1.5 text-[11px]">
+                        <div class="flex justify-between"><span class="text-ink-400">Code</span><span class="font-mono text-pink-400" id="ws-worker-code">--</span></div>
+                        <div class="flex justify-between"><span class="text-ink-400">Proxy</span><span class="font-mono text-paper-50" id="ws-proxy">--</span></div>
+                        <div class="flex justify-between"><span class="text-ink-400">Started</span><span class="font-mono text-paper-50" id="ws-start-time">--</span></div>
+                    </div>
+                </div>
+
+                <!-- Tip -->
+                <div class="surf-pink rounded-lg p-3">
+                    <p class="text-[10px] text-pink-400 font-bold uppercase tracking-wider mb-1">Tip</p>
+                    <p class="text-[11px] text-ink-300 leading-relaxed">Submit subtasks accurately. Quality scores affect your future task eligibility.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// =================================================================
+// LISHLABS TASKS — APPLICATION LOGIC
+// =================================================================
+
+// 15 task categories — each with own per-hour rate in KES 550-1200 band
+const TASKS = [
+    { id:'ai-training', name:'AI Training Data', icon:'fa-solid fa-robot', color:'pink', rate:850, desc:'Label and curate datasets used to train machine learning models.', subtasks:['Categorize training examples','Validate model predictions','Tag edge-case scenarios','Score response quality'], taskType:'label' },
+    { id:'voice-recording', name:'Voice Recording', icon:'fa-solid fa-microphone-lines', color:'lime', rate:1100, desc:'Record clear voice samples in English and Swahili for speech AI.', subtasks:['Read prompt aloud','Submit audio clip','Verify audio clarity','Retake noisy sample'], taskType:'audio' },
+    { id:'web-research', name:'Web Research', icon:'fa-solid fa-magnifying-glass-chart', color:'blue', rate:600, desc:'Find and verify information from the public web for clients.', subtasks:['Search for the topic','Verify source credibility','Extract key facts','Cite the source'], taskType:'search' },
+    { id:'form-filling', name:'Form Filling', icon:'fa-solid fa-pen-to-square', color:'amber', rate:550, desc:'Enter provided data into structured online forms accurately.', subtasks:['Review source data','Fill form fields','Verify entries','Submit form'], taskType:'form' },
+    { id:'captcha-solving', name:'Captcha Solving', icon:'fa-solid fa-shield', color:'orange', rate:650, desc:'Solve image and text captchas to verify human activity.', subtasks:['Identify image elements','Type captcha text','Select matching tiles','Submit solution'], taskType:'captcha' },
+    { id:'video-labeling', name:'Video Labeling', icon:'fa-solid fa-video', color:'purple', rate:950, desc:'Tag objects, actions and events inside video frames.', subtasks:['Watch video segment','Mark object bounds','Label action type','Save annotations'], taskType:'video' },
+    { id:'qa-testing', name:'QA Testing', icon:'fa-solid fa-vial', color:'cyan', rate:1000, desc:'Test websites and apps for bugs, UX issues and accessibility.', subtasks:['Follow test script','Reproduce reported bug','Document findings','Rate severity'], taskType:'qa' },
+    { id:'app-reviews', name:'App Reviews', icon:'fa-solid fa-mobile-screen', color:'rose', rate:750, desc:'Install apps, test features and write honest reviews.', subtasks:['Install the app','Test core feature','Write short review','Rate 1-5 stars'], taskType:'review' },
+    { id:'ad-click-verify', name:'Ad Click Verification', icon:'fa-solid fa-bullseye', color:'lime', rate:700, desc:'Verify ad placements and click-throughs across publisher sites.', subtasks:['Visit publisher URL','Locate the ad','Confirm ad loads','Report broken ad'], taskType:'search' },
+    { id:'map-data-verify', name:'Map Data Verification', icon:'fa-solid fa-map-location-dot', color:'indigo', rate:800, desc:'Verify addresses, business listings and routes on map platforms.', subtasks:['Locate business pin','Confirm address matches','Verify operating hours','Flag mismatch'], taskType:'map' },
+    { id:'translation-review', name:'Translation Review', icon:'fa-solid fa-language', color:'pink', rate:1200, desc:'Review English-Swahili translations for accuracy and tone.', subtasks:['Compare language pair','Rate translation quality','Suggest correction','Flag mistranslation'], taskType:'translation' },
+    { id:'image-tagging', name:'Image Tagging', icon:'fa-solid fa-image', color:'lime', rate:720, desc:'Tag images with descriptive keywords for search indexing.', subtasks:['View the image','Add relevant tags','Rate image quality','Submit tags'], taskType:'label' },
+    { id:'chatbot-eval', name:'Chatbot Evaluation', icon:'fa-solid fa-comments', color:'cyan', rate:880, desc:'Test chatbot responses and rate helpfulness and accuracy.', subtasks:['Send test prompt','Read bot response','Rate helpfulness','Flag bad response'], taskType:'chatbot' },
+    { id:'survey-participation', name:'Survey Participation', icon:'fa-solid fa-square-poll-vertical', color:'amber', rate:580, desc:'Answer surveys and questionnaires for market research.', subtasks:['Read each question','Select honest answer','Complete survey','Submit responses'], taskType:'survey' },
+    { id:'product-writing', name:'Product Description Writing', icon:'fa-solid fa-pen-fancy', color:'rose', rate:950, desc:'Write short, compelling descriptions for e-commerce products.', subtasks:['Review product info','Write 2-3 sentence description','Check grammar','Submit draft'], taskType:'writing' }
+];
+
+const COLOR_HEX = {
+    pink:'#ec4899', lime:'#a3e635', blue:'#60a5fa', amber:'#fbbf24',
+    orange:'#fb923c', purple:'#c084fc', cyan:'#22d3ee', rose:'#fb7185',
+    indigo:'#818cf8'
+};
+
+const DURATIONS = [1, 2, 4];
+
+let state = {
+    user: null,
+    sessions: [],
+    currentSession: null,
+    selectedTaskId: null,
+    selectedHours: null,
+    timerInterval: null,
+    taskIndex: 0,
+    tasksCompleted: 0,
+    totalTasks: 0
+};
+
+// ─── INIT ───
+function init() {
+    loadState();
+    if (state.user) showDashboard();
+    else showAuth();
+    renderTaskList();
+    populateTaskSelect();
+    updateClockTicker();
+    setInterval(updateClockTicker, 30000);
+}
+
+function loadState() {
+    try {
+        const s = localStorage.getItem('lishlabs_v2_state');
+        if (s) {
+            const p = JSON.parse(s);
+            state.user = p.user || null;
+            state.sessions = p.sessions || [];
+            state.currentSession = null;
+        }
+    } catch(e) {}
+}
+
+function saveState() {
+    try {
+        localStorage.setItem('lishlabs_v2_state', JSON.stringify({
+            user: state.user,
+            sessions: state.sessions
+        }));
+    } catch(e) {}
+}
+
+// ─── TOAST (top-right) ───
+function toast(msg, type='success') {
+    const c = document.getElementById('toast-c');
+    const el = document.createElement('div');
+    const bgMap = {
+        success:'bg-lime-500 text-ink-950',
+        error:'bg-red-500 text-white',
+        info:'bg-blue-500 text-white',
+        warning:'bg-amber-500 text-ink-950'
+    };
+    const iconMap = {
+        success:'fa-check', error:'fa-xmark', info:'fa-circle-info', warning:'fa-triangle-exclamation'
+    };
+    el.className = `toast-i ${bgMap[type]||bgMap.info}`;
+    el.innerHTML = `<i class="fa-solid ${iconMap[type]||iconMap.info}"></i> ${msg}`;
+    c.appendChild(el);
+    setTimeout(() => { el.style.opacity = '0'; setTimeout(() => el.remove(), 300); }, 3200);
+}
+
+// ─── CLOCK TICKER ───
+function updateClockTicker() {
+    const now = new Date();
+    const time = now.toLocaleTimeString('en-KE', { hour:'2-digit', minute:'2-digit' });
+    const date = now.toLocaleDateString('en-KE', { weekday:'long', day:'numeric', month:'short' });
+    const timeEl = document.getElementById('home-time');
+    const dateEl = document.getElementById('home-date');
+    if (timeEl) timeEl.textContent = time;
+    if (dateEl) dateEl.textContent = date;
+}
+
+// ─── AUTH ───
+function showAuth() {
+    document.body.className = 'body-auth';
+    document.getElementById('view-auth').classList.remove('hidden');
+    document.getElementById('view-dashboard').classList.add('hidden');
+}
+
+function showDashboard() {
+    document.body.className = 'body-dash';
+    document.getElementById('view-auth').classList.add('hidden');
+    document.getElementById('view-dashboard').classList.remove('hidden');
+    updateDashboardUI();
+    navTo('home');
+}
+
+function switchAuthTab(tab) {
+    const regF = document.getElementById('form-register');
+    const logF = document.getElementById('form-login');
+    const regT = document.getElementById('auth-tab-reg');
+    const logT = document.getElementById('auth-tab-log');
+    const regH = document.getElementById('auth-header-reg');
+    const logH = document.getElementById('auth-header-log');
+
+    if (tab === 'register') {
+        regF.classList.remove('hidden'); logF.classList.add('hidden');
+        regH.classList.remove('hidden'); logH.classList.add('hidden');
+        regT.className = 'px-4 py-1.5 text-xs font-bold rounded-full transition-all bg-ink-900 text-paper-50';
+        logT.className = 'px-4 py-1.5 text-xs font-bold rounded-full transition-all text-ink-600';
+    } else {
+        regF.classList.add('hidden'); logF.classList.remove('hidden');
+        regH.classList.add('hidden'); logH.classList.remove('hidden');
+        logT.className = 'px-4 py-1.5 text-xs font-bold rounded-full transition-all bg-ink-900 text-paper-50';
+        regT.className = 'px-4 py-1.5 text-xs font-bold rounded-full transition-all text-ink-600';
+    }
+}
+
+function handleRegister(e) {
+    e.preventDefault();
+    const username = document.getElementById('reg-username').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const phone = document.getElementById('reg-phone').value.trim();
+    const password = document.getElementById('reg-password').value;
+    const terms = document.getElementById('reg-terms').checked;
+
+    if (!username || !email || !phone || !password) { toast('Please fill in all fields', 'error'); return; }
+    if (!terms) { toast('Please accept the Terms', 'error'); return; }
+    if (!/^[0-9]{9}$/.test(phone)) { toast('Phone must be 9 digits', 'error'); return; }
+
+    state.user = {
+        username, email, phone: '+254' + phone, password,
+        paymentMethod: null,
+        mpesaDetails: null, airtelDetails: null, bankDetails: null, paypalDetails: null,
+        workerCode: null, proxyConfigured: false,
+        createdAt: new Date().toISOString()
+    };
+    state.sessions = [];
+    saveState();
+    toast('Account created! Set up your payout next.', 'success');
+    showDashboard();
+    setTimeout(() => navTo('settings'), 400);
+}
+
+function handleLogin(e) {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    if (state.user && state.user.email === email && state.user.password === password) {
+        toast('Welcome back!', 'success');
+        showDashboard();
+    } else if (state.user && state.user.email === email) {
+        toast('Incorrect password', 'error');
+    } else {
+        toast('No account found. Please register.', 'error');
+    }
+}
+
+function handleLogout() {
+    if (state.currentSession) { toast('End your shift before signing out', 'warning'); return; }
+    state.user = null;
+    showAuth();
+    toast('Signed out', 'info');
+}
+
+// ─── SIDEBAR / NAV ───
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-backdrop').classList.toggle('open');
+}
+
+function navTo(page) {
+    // Close sidebar on mobile
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-backdrop').classList.remove('open');
+
+    // Hide all pages
+    document.querySelectorAll('.dash-page').forEach(p => p.classList.add('hidden'));
+    const target = document.getElementById('page-' + page);
+    if (target) {
+        target.classList.remove('hidden');
+        // Re-trigger animation
+        target.classList.remove('a-slide-l');
+        void target.offsetWidth;
+        target.classList.add('a-slide-l');
+    }
+
+    // Update nav items
+    document.querySelectorAll('.nav-item[data-nav]').forEach(item => {
+        if (item.dataset.nav === page) item.classList.add('active');
+        else item.classList.remove('active');
+    });
+
+    // Update top bar title
+    const titles = { home:'Home', tasks:'Job Board', earnings:'Wallet', settings:'Profile' };
+    const labels = { home:'Dashboard', tasks:'Browse', earnings:'Finance', settings:'Account' };
+    document.getElementById('topbar-section-title').textContent = titles[page];
+    document.getElementById('topbar-section-label').textContent = labels[page];
+
+    // Update earnings UI if needed
+    if (page === 'earnings') renderEarningsPage();
+}
+
+// ─── CLOCK-IN DRAWER ───
+function openClockInDrawer() {
+    const drawer = document.getElementById('clockin-drawer');
+    const backdrop = document.getElementById('drawer-backdrop');
+    const working = state.currentSession !== null;
+    const hasPayment = state.user && state.user.paymentMethod;
+
+    document.getElementById('drawer-already-working').classList.toggle('hidden', !working);
+    document.getElementById('drawer-body').classList.toggle('hidden', working);
+    document.getElementById('drawer-payment-needed').classList.toggle('hidden', working || hasPayment);
+
+    drawer.classList.add('open');
+    backdrop.classList.add('open');
+}
+
+function closeClockInDrawer() {
+    document.getElementById('clockin-drawer').classList.remove('open');
+    document.getElementById('drawer-backdrop').classList.remove('open');
+}
+
+// ─── WORKSPACE OVERLAY ───
+function openWorkspace() {
+    if (!state.currentSession) return;
+    document.getElementById('workspace-overlay').classList.add('open');
+    setupWorkspace();
+}
+
+function closeWorkspace() {
+    document.getElementById('workspace-overlay').classList.remove('open');
+}
+
+// ─── DASHBOARD UI UPDATE ───
+function updateDashboardUI() {
+    if (!state.user) return;
+    const u = state.user;
+
+    // Sidebar
+    document.getElementById('sb-avatar').textContent = u.username.charAt(0).toUpperCase();
+    document.getElementById('sb-name').textContent = u.username;
+    document.getElementById('sb-email').textContent = u.email;
+    document.getElementById('sb-balance').textContent = 'KES ' + formatNum(getTotalEarnings());
+
+    // Home
+    document.getElementById('home-username').textContent = u.username;
+    document.getElementById('stat-balance').textContent = 'KES ' + formatNum(getTotalEarnings());
+    document.getElementById('stat-week').textContent = 'KES ' + formatNum(getWeekEarnings());
+    document.getElementById('stat-sessions').textContent = state.sessions.length;
+    document.getElementById('stat-hours').textContent = getTotalHours() + 'h';
+    document.getElementById('stat-rating').textContent = state.sessions.length > 0 ? '96%' : '--';
+
+    // Payment banner
+    const banner = document.getElementById('payment-banner');
+    if (banner) banner.classList.toggle('hidden', !!u.paymentMethod);
+
+    // Active session tile
+    const activeTile = document.getElementById('tile-active');
+    const activePill = document.getElementById('sb-active-pill');
+    if (state.currentSession) {
+        activeTile.classList.remove('hidden');
+        activePill.classList.remove('hidden');
+        activePill.classList.add('flex');
+        document.getElementById('home-active-task').textContent = getTaskName(state.currentSession.taskId);
+        document.getElementById('home-active-rate').textContent = 'KES ' + formatNum(state.currentSession.rate) + '/hr';
+    } else {
+        activeTile.classList.add('hidden');
+        activePill.classList.add('hidden');
+        activePill.classList.remove('flex');
+    }
+
+    renderHomeTopTasks();
+    renderHomeRecent();
+
+    // Profile page
+    document.getElementById('set-avatar').textContent = u.username.charAt(0).toUpperCase();
+    document.getElementById('set-name').textContent = u.username;
+    document.getElementById('set-email-display').textContent = u.email;
+    document.getElementById('set-username').value = u.username;
+    document.getElementById('set-email').value = u.email;
+    document.getElementById('set-phone').value = u.phone;
+    const since = new Date(u.createdAt).toLocaleDateString('en-KE', { month:'short', year:'numeric' });
+    document.getElementById('set-member-since').textContent = 'Member · ' + since;
+
+    // Verification
+    document.getElementById('verification-code-display').textContent = u.workerCode || 'Not issued';
+    document.getElementById('proxy-status-display').textContent = u.proxyConfigured ? 'Configured' : 'Not set';
+
+    // Pay method
+    if (u.paymentMethod) {
+        selectPayMethod(u.paymentMethod, false);
+        if (u.paymentMethod === 'mpesa' && u.mpesaDetails) {
+            document.getElementById('mpesa-phone').value = u.mpesaDetails.phone.replace('+254', '');
+            document.getElementById('mpesa-name').value = u.mpesaDetails.name || '';
+        }
+        if (u.paymentMethod === 'airtel' && u.airtelDetails) {
+            document.getElementById('airtel-phone').value = u.airtelDetails.phone.replace('+254', '');
+            document.getElementById('airtel-name').value = u.airtelDetails.name || '';
+        }
+        if (u.paymentMethod === 'bank' && u.bankDetails) {
+            document.getElementById('bank-name').value = u.bankDetails.bank || '';
+            document.getElementById('bank-account').value = u.bankDetails.account || '';
+            document.getElementById('bank-acct-name').value = u.bankDetails.name || '';
+            document.getElementById('bank-branch').value = u.bankDetails.branch || '';
+        }
+        if (u.paymentMethod === 'paypal' && u.paypalDetails) {
+            document.getElementById('paypal-email').value = u.paypalDetails.email || '';
+            document.getElementById('paypal-country').value = u.paypalDetails.country || '';
+            document.getElementById('paypal-name').value = u.paypalDetails.name || '';
+        }
+        updatePayMethodDisplay();
+        const badge = document.getElementById('pay-method-badge');
+        badge.textContent = u.paymentMethod.charAt(0).toUpperCase() + u.paymentMethod.slice(1);
+        badge.className = 'pill pill-lime ml-2';
+        badge.style.padding = '2px 7px';
+        badge.style.fontSize = '9px';
+    }
+}
+
+// ─── TASK LIST (row-based, NOT card grid) ───
+function renderTaskList(filter='', sort='default') {
+    const list = document.getElementById('task-list');
+    let arr = [...TASKS];
+    if (filter) arr = arr.filter(t => t.name.toLowerCase().includes(filter.toLowerCase()) || t.desc.toLowerCase().includes(filter.toLowerCase()));
+    if (sort === 'high') arr.sort((a,b) => b.rate - a.rate);
+    else if (sort === 'low') arr.sort((a,b) => a.rate - b.rate);
+    else if (sort === 'name') arr.sort((a,b) => a.name.localeCompare(b.name));
+
+    if (arr.length === 0) {
+        list.innerHTML = `<div class="p-10 text-center text-ink-600"><i class="fa-solid fa-magnifying-glass text-2xl block mb-2 opacity-40"></i><span class="text-xs">No tasks match your search.</span></div>`;
+        return;
+    }
+
+    list.innerHTML = arr.map((t, i) => {
+        const color = COLOR_HEX[t.color] || '#ec4899';
+        const rateBadge = t.rate >= 1000
+            ? '<span class="pill pill-lime" style="padding:3px 8px;font-size:10px">KES ' + formatNum(t.rate) + '/hr</span>'
+            : '<span class="pill pill-pink" style="padding:3px 8px;font-size:10px">KES ' + formatNum(t.rate) + '/hr</span>';
+        return `
+        <div class="task-row a-slide-l" style="animation-delay:${i * 0.04}s" onclick="selectTaskFromList('${t.id}')">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:${color}20;color:${color}">
+                <i class="${t.icon}"></i>
+            </div>
+            <div class="min-w-0">
+                <p class="text-sm font-bold text-paper-50 truncate">${t.name}</p>
+                <p class="text-[11px] text-ink-500 truncate">${t.desc}</p>
+            </div>
+            <div class="col-rate">${rateBadge}</div>
+            <div class="col-tag"><span class="pill pill-muted" style="padding:3px 8px;font-size:9px;text-transform:capitalize">${t.taskType}</span></div>
+            <div class="text-pink-400 text-xs font-bold flex items-center gap-1">Start <i class="fa-solid fa-arrow-right text-[10px]"></i></div>
+        </div>`;
+    }).join('');
+}
+
+function filterTasks() {
+    const f = document.getElementById('task-search').value;
+    const s = document.getElementById('task-sort').value;
+    renderTaskList(f, s);
+}
+
+function selectTaskFromList(taskId) {
+    state.selectedTaskId = taskId;
+    document.getElementById('clockin-task').value = taskId;
+    onTaskSelect();
+    openClockInDrawer();
+    toast('Task selected — complete clock-in to start.', 'info');
+}
+
+function populateTaskSelect() {
+    const sel = document.getElementById('clockin-task');
+    while (sel.options.length > 1) sel.remove(1);
+    TASKS.forEach(t => {
+        const opt = document.createElement('option');
+        opt.value = t.id;
+        opt.textContent = `${t.name} — KES ${t.rate}/hr`;
+        sel.appendChild(opt);
+    });
+}
+
+function onTaskSelect() {
+    const id = document.getElementById('clockin-task').value;
+    const info = document.getElementById('selected-task-info');
+    if (!id) {
+        info.classList.add('hidden');
+        state.selectedTaskId = null;
+        updateDurationRates(null);
+        return;
+    }
+    const t = TASKS.find(x => x.id === id);
+    if (!t) return;
+    state.selectedTaskId = id;
+    info.classList.remove('hidden');
+    document.getElementById('sel-task-name').textContent = t.name;
+    document.getElementById('sel-task-desc').textContent = t.desc;
+    document.getElementById('sel-task-rate').textContent = 'KES ' + formatNum(t.rate);
+    updateDurationRates(t.rate);
+    if (state.selectedHours) updateTotalEarning();
+}
+
+function updateDurationRates(rate) {
+    DURATIONS.forEach(h => {
+        const el = document.getElementById(`time-${h}-rate`);
+        if (el) el.textContent = rate ? 'KES ' + formatNum(rate * h) : 'KES --';
+    });
+}
+
+function selectTime(hours) {
+    state.selectedHours = hours;
+    document.querySelectorAll('.time-opt').forEach(btn => {
+        if (parseInt(btn.dataset.hours) === hours) {
+            btn.classList.add('sel');
+            btn.style.borderColor = '#ec4899';
+            btn.style.background = 'rgba(236,72,153,0.08)';
+        } else {
+            btn.classList.remove('sel');
+            btn.style.borderColor = 'transparent';
+            btn.style.background = '';
+        }
+    });
+    updateTotalEarning();
+}
+
+function updateTotalEarning() {
+    const t = TASKS.find(x => x.id === state.selectedTaskId);
+    if (!t || !state.selectedHours) {
+        document.getElementById('selected-total-earn').textContent = 'KES 0';
+        return;
+    }
+    document.getElementById('selected-total-earn').textContent = 'KES ' + formatNum(t.rate * state.selectedHours);
+}
+
+// ─── CLOCK IN ───
+function handleClockIn() {
+    if (!state.user.paymentMethod) {
+        toast('Set up a payout method first', 'error');
+        closeClockInDrawer();
+        navTo('settings');
+        return;
+    }
+    const taskId = document.getElementById('clockin-task').value;
+    const proxyAddr = document.getElementById('proxy-address').value.trim();
+    const proxyPort = document.getElementById('proxy-port').value.trim();
+    const proxyUser = document.getElementById('proxy-user').value.trim();
+    const vCode = document.getElementById('worker-vcode').value.trim().toUpperCase();
+
+    if (!taskId) { toast('Select a task', 'error'); return; }
+    if (!state.selectedHours) { toast('Select duration', 'error'); return; }
+    if (!proxyAddr) { toast('Proxy address required', 'error'); return; }
+    if (!proxyPort) { toast('Proxy port required', 'error'); return; }
+    if (!vCode) { toast('Worker verification code required', 'error'); return; }
+    if (!vCode.startsWith('LL-') || vCode.length < 7) { toast('Invalid code. Format: LL-XXXXXX', 'error'); return; }
+    if (state.currentSession) { toast('Already on a shift', 'warning'); return; }
+
+    const task = TASKS.find(t => t.id === taskId);
+    const now = new Date();
+    state.currentSession = {
+        id: 'ses_' + Date.now(),
+        taskId,
+        hours: state.selectedHours,
+        rate: task.rate,
+        proxy: `${proxyAddr}:${proxyPort}`,
+        proxyUser,
+        vCode,
+        startTime: now.toISOString(),
+        tasksCompleted: 0
+    };
+
+    state.user.workerCode = vCode;
+    state.user.proxyConfigured = true;
+
+    state.taskIndex = 0;
+    state.tasksCompleted = 0;
+    state.totalTasks = Math.floor(Math.random() * 22) + 25;
+
+    toast('Clocked in! Shift started.', 'success');
+    closeClockInDrawer();
+    startTimer();
+    openWorkspace();
+    updateDashboardUI();
+    saveState();
+}
+
+// ─── TIMER ───
+function startTimer() {
+    if (state.timerInterval) clearInterval(state.timerInterval);
+    const startTime = new Date(state.currentSession.startTime);
+
+    state.timerInterval = setInterval(() => {
+        const now = new Date();
+        const elapsed = now - startTime;
+        const totalMs = state.currentSession.hours * 3600 * 1000;
+        const progress = Math.min((elapsed / totalMs) * 100, 100);
+
+        const h = Math.floor(elapsed / 3600000);
+        const m = Math.floor((elapsed % 3600000) / 60000);
+        const s = Math.floor((elapsed % 60000) / 1000);
+        const timeStr = `${pad(h)}:${pad(m)}:${pad(s)}`;
+
+        // Workspace
+        const wsTimer = document.getElementById('ws-timer');
+        const wsProg = document.getElementById('ws-progress');
+        const wsProgText = document.getElementById('ws-progress-text');
+        const wsEarn = document.getElementById('ws-earned');
+        const wsLiveEarn = document.getElementById('ws-live-earned');
+        if (wsTimer) wsTimer.textContent = timeStr;
+        if (wsProg) wsProg.style.width = progress + '%';
+        if (wsProgText) wsProgText.textContent = Math.floor(progress) + '%';
+
+        const hoursElapsed = elapsed / 3600000;
+        const earned = Math.floor(hoursElapsed * state.currentSession.rate);
+        if (wsEarn) wsEarn.textContent = 'KES ' + formatNum(earned);
+        if (wsLiveEarn) wsLiveEarn.textContent = 'KES ' + formatNum(earned);
+
+        // Home active tile
+        const homeTimer = document.getElementById('home-active-timer');
+        const homeProg = document.getElementById('home-active-progress');
+        const homeEarned = document.getElementById('home-active-earned');
+        if (homeTimer) homeTimer.textContent = timeStr;
+        if (homeProg) homeProg.style.width = progress + '%';
+        if (homeEarned) homeEarned.textContent = 'KES ' + formatNum(earned);
+    }, 1000);
+
+    const startStr = startTime.toLocaleTimeString('en-KE', { hour:'2-digit', minute:'2-digit' });
+    const wsStart = document.getElementById('ws-start');
+    const wsStartTime = document.getElementById('ws-start-time');
+    const wsTarget = document.getElementById('ws-target');
+    const wsRate = document.getElementById('ws-rate');
+    const wsWorkerCode = document.getElementById('ws-worker-code');
+    const wsProxy = document.getElementById('ws-proxy');
+    if (wsStart) wsStart.textContent = startStr;
+    if (wsStartTime) wsStartTime.textContent = startStr;
+    if (wsTarget) wsTarget.textContent = state.currentSession.hours + 'h shift';
+    if (wsRate) wsRate.textContent = 'KES ' + formatNum(state.currentSession.rate) + '/hr';
+    if (wsWorkerCode) wsWorkerCode.textContent = state.currentSession.vCode;
+    if (wsProxy) wsProxy.textContent = state.currentSession.proxy;
+}
+
+function pad(n) { return n.toString().padStart(2, '0'); }
+
+// ─── WORKSPACE TASK RENDERING ───
+function setupWorkspace() {
+    const s = state.currentSession;
+    if (!s) return;
+    const task = TASKS.find(t => t.id === s.taskId);
+    document.getElementById('ws-task-name').textContent = task ? task.name : s.taskId;
+    document.getElementById('ws-tasks-done').textContent = state.tasksCompleted;
+    document.getElementById('ws-total').textContent = state.totalTasks;
+    document.getElementById('ws-counter').textContent = `${state.tasksCompleted} / ${state.totalTasks}`;
+    updateTaskProgress();
+    renderTask();
+}
+
+function updateTaskProgress() {
+    const pct = state.totalTasks > 0 ? Math.floor((state.tasksCompleted / state.totalTasks) * 100) : 0;
+    const bar = document.getElementById('ws-tasks-progress');
+    const txt = document.getElementById('ws-tasks-percent');
+    if (bar) bar.style.width = pct + '%';
+    if (txt) txt.textContent = pct + '%';
+}
+
+function renderTask() {
+    const s = state.currentSession;
+    if (!s) return;
+    const task = TASKS.find(t => t.id === s.taskId);
+    if (!task) return;
+    const area = document.getElementById('ws-task-content');
+    const subType = task.subtasks[state.taskIndex % task.subtasks.length];
+    const seed = Date.now() + state.taskIndex;
+    const color = COLOR_HEX[task.color] || '#ec4899';
+    let html = '';
+
+    if (task.taskType === 'label' || task.taskType === 'video') {
+        const labels = ['Person','Vehicle','Animal','Building','Sign','Tree','Road','Object','Text','Logo','Sky','Water'];
+        html = `
+        <div class="surf-2 rounded-lg p-4">
+            <p class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color:${color}">${subType}</p>
+            <div class="rounded-lg overflow-hidden bg-ink-800 mb-3" style="height:180px">
+                <img src="https://picsum.photos/seed/${seed}/400/180.jpg" class="w-full h-full object-cover" alt="Task" onerror="this.parentElement.innerHTML='<div class=\\'flex items-center justify-center h-full text-ink-600\\'><i class=\\'fa-solid fa-image text-3xl\\'></i></div>'">
+            </div>
+            <p class="text-xs text-ink-400 mb-2">Select the correct label:</p>
+            <div class="flex flex-wrap gap-2">
+                ${labels.map(l => `<button onclick="selectLabel(this,'${l}')" class="label-btn px-3 py-1.5 bg-ink-900 border border-ink-700 rounded-md text-xs font-semibold text-ink-300 hover:border-pink-500/50 hover:text-pink-400 transition">${l}</button>`).join('')}
+            </div>
+        </div>`;
+    } else if (task.taskType === 'audio') {
+        const prompts = ['Hello, my name is Jane and I live in Nairobi.','The weather today is sunny with a light breeze.','Karibu Kenya, nchi yetu ya kupendana.','Please confirm your M-Pesa transaction.','The meeting starts at two thirty PM.'];
+        const txt = prompts[state.taskIndex % prompts.length];
+        html = `
+        <div class="surf-2 rounded-lg p-4">
+            <p class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color:${color}">${subType}</p>
+            <div class="p-4 bg-ink-900 rounded-lg mb-3">
+                <p class="text-[10px] font-bold text-lime-400 uppercase tracking-wider mb-1">Read Aloud:</p>
+                <p class="text-sm text-paper-50">"${txt}"</p>
+            </div>
+            <div class="p-3 surf-3 rounded-lg flex items-center gap-3 mb-3">
+                <button class="w-10 h-10 rounded-full bg-lime-400/15 text-lime-400 flex items-center justify-center"><i class="fa-solid fa-play"></i></button>
+                <div class="flex-1">
+                    <div class="h-1.5 bg-ink-700 rounded-full"><div class="h-1.5 bg-lime-400 rounded-full" style="width:${20+Math.random()*50}%"></div></div>
+                    <p class="text-[10px] text-ink-500 mt-1">Recording: 0:${(8+Math.floor(Math.random()*20)).toString().padStart(2,'0')} / 0:30</p>
+                </div>
+                <i class="fa-solid fa-microphone text-lime-400 a-blink"></i>
+            </div>
+            <p class="text-xs text-ink-400 mb-2">Confirm audio clarity:</p>
+            <div class="flex gap-2">
+                <button onclick="selectLabel(this,'Clear')" class="label-btn flex-1 py-2.5 bg-lime-400/10 border border-lime-400/25 rounded-md text-xs font-bold text-lime-400">Clear</button>
+                <button onclick="selectLabel(this,'Retake')" class="label-btn flex-1 py-2.5 bg-amber-400/10 border border-amber-400/25 rounded-md text-xs font-bold text-amber-400">Retake</button>
+                <button onclick="selectLabel(this,'Reject')" class="label-btn flex-1 py-2.5 bg-red-400/10 border border-red-400/25 rounded-md text-xs font-bold text-red-400">Reject</button>
+            </div>
+        </div>`;
+    } else if (task.taskType === 'search') {
+        const queries = ['best safaricom data bundles 2026','nairobi to mombasa bus fares','how to register a business in kenya','kicc events calendar','kenya power outage schedule'];
+        const q = queries[state.taskIndex % queries.length];
+        html = `
+        <div class="surf-2 rounded-lg p-4">
+            <p class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color:${color}">${subType}</p>
+            <div class="p-3 bg-ink-900 rounded-lg mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-magnifying-glass text-ink-500"></i>
+                <span class="text-sm text-paper-50">${q}</span>
+            </div>
+            <div class="space-y-2 mb-3">
+                ${[1,2,3].map(n => `<div class="p-3 surf-3 rounded-md border border-ink-700"><p class="text-xs font-bold text-pink-400">Result ${n}</p><p class="text-[10px] text-ink-500 mt-0.5">example${n}.co.ke — Result ${n} about ${q}</p></div>`).join('')}
+            </div>
+            <p class="text-xs text-ink-400 mb-2">Rate relevance:</p>
+            <div class="flex gap-2">
+                ${['Not Rel.','Somewhat','Relevant','Highly'].map(l => `<button onclick="selectLabel(this,'${l}')" class="label-btn flex-1 py-2 bg-ink-900 border border-ink-700 rounded-md text-[10px] font-bold text-ink-300 hover:border-pink-500/50 transition">${l}</button>`).join('')}
+            </div>
+        </div>`;
+    } else if (task.taskType === 'form') {
+        html = `
+        <div class="surf-2 rounded-lg p-4">
+            <p class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color:${color}">${subType}</p>
+            <div class="grid grid-cols-2 gap-2 mb-3">
+                <div class="p-2.5 surf-3 rounded-md"><p class="text-[9px] text-ink-500 uppercase">Name</p><p class="text-xs text-paper-50 mt-0.5">John Kamau</p></div>
+                <div class="p-2.5 surf-3 rounded-md"><p class="text-[9px] text-ink-500 uppercase">Phone</p><p class="text-xs text-paper-50 mt-0.5">+254 712 345 678</p></div>
+                <div class="p-2.5 surf-3 rounded-md"><p class="text-[9px] text-ink-500 uppercase">ID</p><p class="text-xs text-paper-50 mt-0.5">12345678</p></div>
+                <div class="p-2.5 surf-3 rounded-md"><p class="text-[9px] text-ink-500 uppercase">County</p><p class="text-xs text-paper-50 mt-0.5">Nairobi</p></div>
+            </div>
+            <p class="text-xs text-ink-400 mb-2">Enter the data:</p>
+            <div class="space-y-2">
+                <input class="inp text-xs" placeholder="Name">
+                <input class="inp text-xs" placeholder="Phone">
+                <input class="inp text-xs" placeholder="ID">
+                <input class="inp text-xs" placeholder="County">
+            </div>
+        </div>`;
+    } else if (task.taskType === 'captcha') {
+        const captcha = Math.random().toString(36).substring(2, 8).toUpperCase();
+        html = `
+        <div class="surf-2 rounded-lg p-4">
+            <p class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color:${color}">${subType}</p>
+            <div class="p-6 bg-ink-900 rounded-lg mb-3 text-center">
+                <p class="font-mono text-2xl font-bold text-pink-400 tracking-[8px]" style="text-decoration:line-through;text-decoration-color:rgba(255,255,255,0.15)">${captcha}</p>
+            </div>
+            <p class="text-xs text-ink-400 mb-2">Type the captcha:</p>
+            <input type="text" id="captcha-input" class="inp font-mono uppercase tracking-widest text-center" placeholder="Type here">
+        </div>`;
+    } else if (task.taskType === 'qa') {
+        html = `
+        <div class="surf-2 rounded-lg p-4">
+            <p class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color:${color}">${subType}</p>
+            <div class="p-4 bg-ink-900 rounded-lg mb-3 border border-ink-700">
+                <p class="text-[10px] font-bold text-amber-400 uppercase mb-1">Test Case #${1000 + state.taskIndex}</p>
+                <p class="text-xs text-ink-200">Verify login button redirects to /auth after click. Chrome desktop &amp; mobile.</p>
+                <div class="mt-2 flex flex-wrap gap-1.5">
+                    <span class="pill pill-muted" style="padding:2px 7px;font-size:9px">Priority: High</span>
+                    <span class="pill pill-muted" style="padding:2px 7px;font-size:9px">Module: Auth</span>
+                    <span class="pill pill-muted" style="padding:2px 7px;font-size:9px">Web</span>
+                </div>
+            </div>
+            <p class="text-xs text-ink-400 mb-2">Test result:</p>
+            <div class="flex gap-2">
+                <button onclick="selectLabel(this,'Passed')" class="label-btn flex-1 py-2.5 bg-lime-400/10 border border-lime-400/25 rounded-md text-xs font-bold text-lime-400">Passed</button>
+                <button onclick="selectLabel(this,'Failed')" class="label-btn flex-1 py-2.5 bg-red-400/10 border border-red-400/25 rounded-md text-xs font-bold text-red-400">Failed</button>
+                <button onclick="selectLabel(this,'Blocked')" class="label-btn flex-1 py-2.5 bg-amber-400/10 border border-amber-400/25 rounded-md text-xs font-bold text-amber-400">Blocked</button>
+            </div>
+        </div>`;
+    } else if (task.taskType === 'review') {
+        const apps = ['Safaricom App','KCB Mobile','Jumia Shopping','Bolt Ride','Twiga Foods','Pula App'];
+        const a = apps[state.taskIndex % apps.length];
+        html = `
+        <div class="surf-2 rounded-lg p-4">
+            <p class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color:${color}">${subType}</p>
+            <div class="p-3 bg-ink-900 rounded-lg mb-3 flex items-center gap-3">
+                <div class="w-11 h-11 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,${color},#a3e635)"><i class="fa-solid fa-mobile-screen text-white"></i></div>
+                <div class="flex-1">
+                    <p class="text-sm font-bold text-paper-50">${a}</p>
+                    <p class="text-[10px] text-ink-500">v${2+Math.floor(Math.random()*4)}.${Math.floor(Math.random()*9)}.${Math.floor(Math.random()*9)}</p>
+                </div>
+            </div>
+            <p class="text-xs text-ink-400 mb-2">Rate (1-5):</p>
+            <div class="flex gap-2 mb-3">
+                ${[1,2,3,4,5].map(n => `<button onclick="selectLabel(this,'${n} star')" class="label-btn flex-1 py-2.5 bg-ink-900 border border-ink-700 rounded-md text-lg text-amber-400 hover:bg-amber-400/10 transition"><i class="fa-solid fa-star"></i></button>`).join('')}
+            </div>
+            <textarea id="review-text" class="inp min-h-[60px] resize-none text-xs" placeholder="Write a short review..."></textarea>
+        </div>`;
+    } else if (task.taskType === 'map') {
+        const places = ['Java House — Westlands','Naivas — Buruburu','KCB — Thika','Total — Karen','Java — Kilimani'];
+        const p = places[state.taskIndex % places.length];
+        html = `
+        <div class="surf-2 rounded-lg p-4">
+            <p class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color:${color}">${subType}</p>
+            <div class="rounded-lg mb-3 p-4 flex items-center justify-center" style="height:120px;background:linear-gradient(135deg,${color}25,#1c1917)">
+                <i class="fa-solid fa-map-location-dot text-4xl" style="color:${color};opacity:0.6"></i>
+            </div>
+            <div class="p-3 bg-ink-900 rounded-lg mb-3 border border-ink-700">
+                <p class="text-sm font-bold text-paper-50">${p}</p>
+                <p class="text-[10px] text-ink-500 mt-0.5">Reported: -1.${Math.floor(Math.random()*9)}, 36.${Math.floor(Math.random()*9)}</p>
+            </div>
+            <p class="text-xs text-ink-400 mb-2">Location accuracy:</p>
+            <div class="flex gap-2">
+                <button onclick="selectLabel(this,'Accurate')" class="label-btn flex-1 py-2.5 bg-lime-400/10 border border-lime-400/25 rounded-md text-xs font-bold text-lime-400">Accurate</button>
+                <button onclick="selectLabel(this,'Off')" class="label-btn flex-1 py-2.5 bg-amber-400/10 border border-amber-400/25 rounded-md text-xs font-bold text-amber-400">Off</button>
+                <button onclick="selectLabel(this,'Wrong')" class="label-btn flex-1 py-2.5 bg-red-400/10 border border-red-400/25 rounded-md text-xs font-bold text-red-400">Wrong</button>
+            </div>
+        </div>`;
+    } else if (task.taskType === 'translation') {
+        const pairs = [
+            { en:'How are you today?', sw:'Habari yako leo?' },
+            { en:'Thank you very much.', sw:'Asante sana.' },
+            { en:'Where is the nearest hospital?', sw:'Hospitali iko karibu wapi?' },
+            { en:'I need to withdraw money.', sw:'Nahitaji kutoa pesa.' },
+            { en:'The meeting starts at noon.', sw:'Mkutano unaanza mchana.' },
+            { en:'Please call me back later.', sw:'Tafadhali nipigie simu baadaye.' }
+        ];
+        const p = pairs[state.taskIndex % pairs.length];
+        html = `
+        <div class="surf-2 rounded-lg p-4">
+            <p class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color:${color}">${subType}</p>
+            <div class="grid grid-cols-2 gap-3 mb-3">
+                <div class="p-3 bg-blue-400/5 border border-blue-400/20 rounded-lg"><p class="text-[10px] font-bold text-blue-400 mb-1">ENGLISH</p><p class="text-sm text-paper-50">${p.en}</p></div>
+                <div class="p-3 bg-amber-400/5 border border-amber-400/20 rounded-lg"><p class="text-[10px] font-bold text-amber-400 mb-1">SWAHILI</p><p class="text-sm text-paper-50">${p.sw}</p></div>
+            </div>
+            <p class="text-xs text-ink-400 mb-2">Translation accuracy:</p>
+            <div class="flex gap-2">
+                <button onclick="selectLabel(this,'Correct')" class="label-btn flex-1 py-2.5 bg-lime-400/10 border border-lime-400/25 rounded-md text-xs font-bold text-lime-400">Correct</button>
+                <button onclick="selectLabel(this,'Partially')" class="label-btn flex-1 py-2.5 bg-amber-400/10 border border-amber-400/25 rounded-md text-xs font-bold text-amber-400">Partially</button>
+                <button onclick="selectLabel(this,'Incorrect')" class="label-btn flex-1 py-2.5 bg-red-400/10 border border-red-400/25 rounded-md text-xs font-bold text-red-400">Incorrect</button>
+            </div>
+        </div>`;
+    } else if (task.taskType === 'chatbot') {
+        const prompts = ['What is the weather today?','How do I reset my password?','Tell me a joke.','What is M-Pesa?','Help me book a flight.'];
+        const responses = ['The weather in Nairobi is 24°C with partly cloudy skies.','Click "Forgot Password" on the login page.','Why did the chicken cross the road? To get to the other side!','M-Pesa is a mobile money service by Safaricom.','I can help you book a flight. Where to?'];
+        const idx = state.taskIndex % prompts.length;
+        html = `
+        <div class="surf-2 rounded-lg p-4">
+            <p class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color:${color}">${subType}</p>
+            <div class="space-y-2 mb-3">
+                <div class="flex justify-end"><div class="max-w-[80%] p-2.5 bg-pink-500/15 rounded-lg rounded-tr-sm"><p class="text-xs text-paper-50">${prompts[idx]}</p></div></div>
+                <div class="flex justify-start"><div class="max-w-[80%] p-2.5 bg-ink-900 rounded-lg rounded-tl-sm"><p class="text-xs text-ink-200">${responses[idx]}</p></div></div>
+            </div>
+            <p class="text-xs text-ink-400 mb-2">Rate bot response:</p>
+            <div class="flex gap-2">
+                <button onclick="selectLabel(this,'Helpful')" class="label-btn flex-1 py-2.5 bg-lime-400/10 border border-lime-400/25 rounded-md text-xs font-bold text-lime-400">Helpful</button>
+                <button onclick="selectLabel(this,'Neutral')" class="label-btn flex-1 py-2.5 bg-amber-400/10 border border-amber-400/25 rounded-md text-xs font-bold text-amber-400">Neutral</button>
+                <button onclick="selectLabel(this,'Bad')" class="label-btn flex-1 py-2.5 bg-red-400/10 border border-red-400/25 rounded-md text-xs font-bold text-red-400">Bad</button>
+            </div>
+        </div>`;
+    } else if (task.taskType === 'survey') {
+        const questions = ['How often do you use mobile money? (Daily/Weekly/Monthly/Rarely)','Which platform do you use most? (WhatsApp/Facebook/TikTok/Twitter)','Rate your internet speed (1-5)','Bought anything online this month? (Yes/No)','Most trusted news source? (TV/Radio/Online/Social)'];
+        const q = questions[state.taskIndex % questions.length];
+        html = `
+        <div class="surf-2 rounded-lg p-4">
+            <p class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color:${color}">${subType}</p>
+            <div class="p-4 bg-ink-900 rounded-lg mb-3">
+                <p class="text-[10px] font-bold text-amber-400 uppercase mb-1">Question ${state.taskIndex + 1}</p>
+                <p class="text-sm text-paper-50">${q}</p>
+            </div>
+            <p class="text-xs text-ink-400 mb-2">Your answer:</p>
+            <textarea id="survey-input" class="inp min-h-[60px] resize-none text-xs" placeholder="Type your response..."></textarea>
+        </div>`;
+    } else if (task.taskType === 'writing') {
+        const products = ['Wireless Bluetooth Earbuds','Stainless Steel Water Bottle 1L','Cotton T-Shirt Size L','Smart Phone Stand','LED Desk Lamp USB'];
+        const p = products[state.taskIndex % products.length];
+        html = `
+        <div class="surf-2 rounded-lg p-4">
+            <p class="text-[10px] font-bold uppercase tracking-wider mb-2" style="color:${color}">${subType}</p>
+            <div class="p-3 bg-ink-900 rounded-lg mb-3 border border-ink-700">
+                <p class="text-sm font-bold text-paper-50">${p}</p>
+                <p class="text-[10px] text-ink-500 mt-0.5">Price: KES ${500+Math.floor(Math.random()*4500)}</p>
+            </div>
+            <p class="text-xs text-ink-400 mb-2">Write a 2-3 sentence description:</p>
+            <textarea id="writing-input" class="inp min-h-[80px] resize-none text-xs" placeholder="Highlight features and benefits..."></textarea>
+        </div>`;
+    }
+
+    area.innerHTML = html;
+}
+
+let selectedLabel = null;
+function selectLabel(btn, label) {
+    selectedLabel = label;
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.label-btn').forEach(b => b.classList.remove('sel'));
+    btn.classList.add('sel');
+}
+
+function submitTask() {
+    const s = state.currentSession;
+    if (!s) return;
+    const task = TASKS.find(t => t.id === s.taskId);
+    if (task.taskType === 'survey') {
+        const inp = document.getElementById('survey-input');
+        if (inp && !inp.value.trim()) { toast('Please answer the survey', 'warning'); return; }
+    }
+    if (task.taskType === 'writing') {
+        const inp = document.getElementById('writing-input');
+        if (inp && !inp.value.trim()) { toast('Please write the description', 'warning'); return; }
+    }
+    if (task.taskType === 'captcha') {
+        const inp = document.getElementById('captcha-input');
+        if (inp && !inp.value.trim()) { toast('Please solve the captcha', 'warning'); return; }
+    }
+
+    state.tasksCompleted++;
+    state.taskIndex++;
+    selectedLabel = null;
+
+    document.getElementById('ws-tasks-done').textContent = state.tasksCompleted;
+    document.getElementById('ws-counter').textContent = `${state.tasksCompleted} / ${state.totalTasks}`;
+    updateTaskProgress();
+
+    toast('Subtask submitted', 'success');
+
+    if (state.tasksCompleted >= state.totalTasks) {
+        toast('All subtasks complete!', 'success');
+        setTimeout(() => clockOut(), 1500);
+        return;
+    }
+    renderTask();
+}
+
+function skipTask() {
+    state.taskIndex++;
+    selectedLabel = null;
+    renderTask();
+}
+
+// ─── CLOCK OUT ───
+function clockOut() {
+    if (!state.currentSession) return;
+    if (state.timerInterval) { clearInterval(state.timerInterval); state.timerInterval = null; }
+
+    const startTime = new Date(state.currentSession.startTime);
+    const endTime = new Date();
+    const elapsedHours = (endTime - startTime) / 3600000;
+    const targetHours = state.currentSession.hours;
+    const proportion = Math.min(elapsedHours / targetHours, 1);
+    const earned = Math.floor(proportion * state.currentSession.rate * state.currentSession.hours);
+
+    const completed = {
+        ...state.currentSession,
+        endTime: endTime.toISOString(),
+        elapsedHours: Math.round(elapsedHours * 100) / 100,
+        earned,
+        tasksCompleted: state.tasksCompleted,
+        status: proportion >= 0.9 ? 'completed' : 'partial'
+    };
+
+    state.sessions.unshift(completed);
+    state.currentSession = null;
+    state.selectedTaskId = null;
+    state.selectedHours = null;
+    state.taskIndex = 0;
+    state.tasksCompleted = 0;
+    state.totalTasks = 0;
+    selectedLabel = null;
+
+    closeWorkspace();
+    saveState();
+    updateDashboardUI();
+    navTo('home');
+    toast(`Shift ended. Earned KES ${formatNum(earned)}!`, 'success');
+}
+
+// ─── PROFILE ───
+function saveProfile() {
+    const username = document.getElementById('set-username').value.trim();
+    const phone = document.getElementById('set-phone').value.trim();
+    if (!username) { toast('Username cannot be empty', 'error'); return; }
+    state.user.username = username;
+    state.user.phone = phone;
+    saveState();
+    updateDashboardUI();
+    toast('Profile updated', 'success');
+}
+
+let selectedPayMethod = null;
+function selectPayMethod(method, interactive=true) {
+    selectedPayMethod = method;
+    const btns = { mpesa:'pay-mpesa', airtel:'pay-airtel', bank:'pay-bank', paypal:'pay-paypal' };
+    const panels = { mpesa:'mpesa-details', airtel:'airtel-details', bank:'bank-details', paypal:'paypal-details' };
+    Object.keys(btns).forEach(k => {
+        const b = document.getElementById(btns[k]);
+        const p = document.getElementById(panels[k]);
+        if (k === method) {
+            b.classList.add('sel');
+            b.style.borderColor = '#ec4899';
+            b.style.background = 'rgba(236,72,153,0.08)';
+            p.classList.remove('hidden');
+        } else {
+            b.classList.remove('sel');
+            b.style.borderColor = 'transparent';
+            b.style.background = '';
+            p.classList.add('hidden');
+        }
+    });
+    if (interactive) {
+        state.user.paymentMethod = method;
+        saveState();
+    }
+}
+
+function savePaymentMethod() {
+    if (!selectedPayMethod) { toast('Select a method first', 'error'); return; }
+
+    if (selectedPayMethod === 'mpesa') {
+        const phone = document.getElementById('mpesa-phone').value.trim();
+        const name = document.getElementById('mpesa-name').value.trim();
+        if (!phone) { toast('Enter M-Pesa phone', 'error'); return; }
+        state.user.paymentMethod = 'mpesa';
+        state.user.mpesaDetails = { phone: '+254' + phone, name };
+        state.user.airtelDetails = null;
+        state.user.bankDetails = null;
+        state.user.paypalDetails = null;
+    } else if (selectedPayMethod === 'airtel') {
+        const phone = document.getElementById('airtel-phone').value.trim();
+        const name = document.getElementById('airtel-name').value.trim();
+        if (!phone) { toast('Enter Airtel phone', 'error'); return; }
+        state.user.paymentMethod = 'airtel';
+        state.user.airtelDetails = { phone: '+254' + phone, name };
+        state.user.mpesaDetails = null;
+        state.user.bankDetails = null;
+        state.user.paypalDetails = null;
+    } else if (selectedPayMethod === 'bank') {
+        const bank = document.getElementById('bank-name').value;
+        const account = document.getElementById('bank-account').value.trim();
+        const name = document.getElementById('bank-acct-name').value.trim();
+        const branch = document.getElementById('bank-branch').value.trim();
+        if (!bank || !account) { toast('Bank & account required', 'error'); return; }
+        state.user.paymentMethod = 'bank';
+        state.user.bankDetails = { bank, account, name, branch };
+        state.user.mpesaDetails = null;
+        state.user.airtelDetails = null;
+        state.user.paypalDetails = null;
+    } else if (selectedPayMethod === 'paypal') {
+        const email = document.getElementById('paypal-email').value.trim();
+        const country = document.getElementById('paypal-country').value;
+        const name = document.getElementById('paypal-name').value.trim();
+        if (!email) { toast('Enter PayPal email', 'error'); return; }
+        state.user.paymentMethod = 'paypal';
+        state.user.paypalDetails = { email, country, name };
+        state.user.mpesaDetails = null;
+        state.user.airtelDetails = null;
+        state.user.bankDetails = null;
+    }
+
+    saveState();
+    updatePayMethodDisplay();
+    updateDashboardUI();
+    toast('Payout method saved', 'success');
+}
+
+function updatePayMethodDisplay() {
+    const display = document.getElementById('current-pay-display');
+    const text = document.getElementById('current-pay-text');
+    const detail = document.getElementById('current-pay-detail');
+    const badge = document.getElementById('pay-method-badge');
+    if (!state.user.paymentMethod) {
+        display.classList.add('hidden');
+        badge.textContent = 'Not set';
+        badge.className = 'pill pill-muted ml-2';
+        return;
+    }
+    display.classList.remove('hidden');
+    const m = state.user.paymentMethod;
+    if (m === 'mpesa' && state.user.mpesaDetails) {
+        text.textContent = 'M-Pesa';
+        detail.textContent = state.user.mpesaDetails.phone + (state.user.mpesaDetails.name ? ' — ' + state.user.mpesaDetails.name : '');
+    } else if (m === 'airtel' && state.user.airtelDetails) {
+        text.textContent = 'Airtel Money';
+        detail.textContent = state.user.airtelDetails.phone + (state.user.airtelDetails.name ? ' — ' + state.user.airtelDetails.name : '');
+    } else if (m === 'bank' && state.user.bankDetails) {
+        text.textContent = state.user.bankDetails.bank;
+        detail.textContent = 'Acc: ' + state.user.bankDetails.account + (state.user.bankDetails.name ? ' — ' + state.user.bankDetails.name : '');
+    } else if (m === 'paypal' && state.user.paypalDetails) {
+        text.textContent = 'PayPal';
+        detail.textContent = state.user.paypalDetails.email + (state.user.paypalDetails.country ? ' — ' + state.user.paypalDetails.country : '');
+    }
+    badge.textContent = m.charAt(0).toUpperCase() + m.slice(1);
+    badge.className = 'pill pill-lime ml-2';
+}
+
+function renderPaymentDisplay() {
+    const el = document.getElementById('earning-pay-method');
+    if (!state.user.paymentMethod) {
+        el.innerHTML = `<div class="w-10 h-10 rounded-lg bg-ink-800 flex items-center justify-center text-ink-500"><i class="fa-regular fa-circle-question"></i></div><div><p class="text-sm font-semibold text-ink-300">Not configured</p><p class="text-[10px] text-ink-500">Set up in Profile</p></div>`;
+        return;
+    }
+    const m = state.user.paymentMethod;
+    const map = {
+        mpesa:{i:'fa-solid fa-mobile-screen-button',c:'text-green-400',bg:'bg-green-400/10',n:'M-Pesa',d:state.user.mpesaDetails?.phone},
+        airtel:{i:'fa-solid fa-mobile',c:'text-red-400',bg:'bg-red-400/10',n:'Airtel Money',d:state.user.airtelDetails?.phone},
+        bank:{i:'fa-solid fa-building-columns',c:'text-blue-400',bg:'bg-blue-400/10',n:state.user.bankDetails?.bank||'Bank',d:'Acc: '+state.user.bankDetails?.account},
+        paypal:{i:'fa-brands fa-paypal',c:'text-indigo-400',bg:'bg-indigo-400/10',n:'PayPal',d:state.user.paypalDetails?.email}
+    };
+    const x = map[m];
+    el.innerHTML = `<div class="w-10 h-10 rounded-lg ${x.bg} ${x.c} flex items-center justify-center"><i class="${x.i}"></i></div><div><p class="text-sm font-semibold text-paper-50">${x.n}</p><p class="text-[10px] text-ink-400">${x.d || 'Not set'}</p></div>`;
+}
+
+// ─── ACCORDION ───
+function toggleAccordion(btn) {
+    const panel = btn.nextElementSibling;
+    const chev = btn.querySelector('.acc-chev');
+    panel.classList.toggle('open');
+    chev.classList.toggle('open');
+}
+
+// ─── CLEAR DATA ───
+function clearAllData() {
+    if (state.currentSession) { toast('End your shift first', 'warning'); return; }
+    localStorage.removeItem('lishlabs_v2_state');
+    state.user = null;
+    state.sessions = [];
+    toast('All data cleared', 'info');
+    showAuth();
+}
+
+// ─── HELPERS ───
+function getTaskName(id) {
+    const t = TASKS.find(x => x.id === id);
+    return t ? t.name : id;
+}
+
+function getTotalEarnings() {
+    return state.sessions.reduce((sum, s) => sum + (s.earned || 0), 0);
+}
+
+function getTotalHours() {
+    return Math.round(state.sessions.reduce((sum, s) => sum + (s.elapsedHours || 0), 0) * 10) / 10;
+}
+
+function getWeekEarnings() {
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    return state.sessions.filter(s => new Date(s.startTime) >= weekAgo).reduce((sum, s) => sum + (s.earned || 0), 0);
+}
+
+function formatNum(n) {
+    return Number(n).toLocaleString('en-KE');
+}
+
+// ─── HOME RENDERING ───
+function renderHomeTopTasks() {
+    const el = document.getElementById('home-top-tasks');
+    if (!el) return;
+    const top = [...TASKS].sort((a,b) => b.rate - a.rate).slice(0, 4);
+    el.innerHTML = top.map((t, i) => {
+        const color = COLOR_HEX[t.color] || '#ec4899';
+        return `
+        <div onclick="selectTaskFromList('${t.id}')" class="flex items-center gap-3 p-2.5 rounded-lg hover:bg-ink-900 cursor-pointer transition">
+            <span class="font-mono text-xs text-ink-600 w-5">${(i+1).toString().padStart(2,'0')}</span>
+            <div class="w-8 h-8 rounded-md flex items-center justify-center flex-shrink-0" style="background:${color}20;color:${color}"><i class="${t.icon} text-xs"></i></div>
+            <div class="flex-1 min-w-0">
+                <p class="text-xs font-bold text-paper-50 truncate">${t.name}</p>
+                <p class="text-[10px] text-ink-500">${t.taskType}</p>
+            </div>
+            <div class="text-right">
+                <p class="font-mono text-xs font-bold text-lime-400">KES ${t.rate}</p>
+                <p class="text-[9px] text-ink-600">per hr</p>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function renderHomeRecent() {
+    const el = document.getElementById('home-recent');
+    if (!el) return;
+    if (state.sessions.length === 0) {
+        el.innerHTML = `<div class="text-center py-5 text-ink-600"><i class="fa-regular fa-clock text-xl block mb-1 opacity-30"></i><span class="text-[11px]">No sessions yet</span></div>`;
+        return;
+    }
+    el.innerHTML = state.sessions.slice(0, 4).map(s => {
+        const date = new Date(s.startTime).toLocaleDateString('en-KE', { day:'numeric', month:'short' });
+        const statusColor = s.status === 'completed' ? 'pill-lime' : 'pill-amber';
+        return `
+        <div class="flex items-center gap-3 py-2 border-b border-ink-800 last:border-0">
+            <div class="w-7 h-7 rounded-md bg-pink-500/10 text-pink-400 flex items-center justify-center text-[10px]"><i class="fa-solid fa-check"></i></div>
+            <div class="flex-1 min-w-0">
+                <p class="text-xs font-bold text-paper-50 truncate">${getTaskName(s.taskId)}</p>
+                <p class="text-[10px] text-ink-500">${date} · ${s.elapsedHours}h</p>
+            </div>
+            <div class="text-right flex-shrink-0">
+                <p class="text-xs font-bold text-lime-400">KES ${formatNum(s.earned)}</p>
+                <span class="pill ${statusColor}" style="padding:1px 6px;font-size:8px">${s.status}</span>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+// ─── EARNINGS PAGE ───
+function renderEarningsPage() {
+    document.getElementById('earn-total').textContent = 'KES ' + formatNum(getTotalEarnings());
+    document.getElementById('earn-week').textContent = 'KES ' + formatNum(getWeekEarnings());
+    document.getElementById('earn-pending').textContent = 'KES 0';
+    document.getElementById('earn-paid').textContent = 'KES ' + formatNum(getTotalEarnings());
+    renderPaymentDisplay();
+    renderWeeklyChart();
+    renderEarningsTable();
+}
+
+function renderWeeklyChart() {
+    const chartEl = document.getElementById('weekly-chart');
+    const labelsEl = document.getElementById('weekly-labels');
+    if (!chartEl || !labelsEl) return;
+
+    // Get last 7 days
+    const days = [];
+    const today = new Date();
+    for (let i = 6; i >= 0; i--) {
+        const d = new Date(today);
+        d.setDate(d.getDate() - i);
+        d.setHours(0,0,0,0);
+        const next = new Date(d);
+        next.setDate(next.getDate() + 1);
+        const earned = state.sessions
+            .filter(s => {
+                const st = new Date(s.startTime);
+                return st >= d && st < next;
+            })
+            .reduce((sum, s) => sum + (s.earned || 0), 0);
+        days.push({ date: d, earned, isToday: i === 0 });
+    }
+
+    const maxEarned = Math.max(...days.map(d => d.earned), 1000);
+    chartEl.innerHTML = days.map(d => {
+        const h = Math.max((d.earned / maxEarned) * 100, 2);
+        return `<div class="flex-1 flex flex-col items-center justify-end h-full">
+            <span class="text-[9px] font-mono text-ink-500 mb-1">${d.earned > 0 ? formatNum(d.earned) : ''}</span>
+            <div class="chart-bar ${d.isToday ? 'today' : ''} w-full" style="height:${h}%"></div>
+        </div>`;
+    }).join('');
+
+    labelsEl.innerHTML = days.map(d => {
+        const dayName = d.date.toLocaleDateString('en-KE', { weekday:'short' }).substring(0, 2);
+        return `<div>${d.isToday ? '<span class="text-lime-400">'+dayName+'</span>' : dayName}</div>`;
+    }).join('');
+}
+
+function renderEarningsTable() {
+    const tbody = document.getElementById('earnings-table-body');
+    const countEl = document.getElementById('history-count');
+    if (countEl) countEl.textContent = state.sessions.length + ' records';
+
+    if (state.sessions.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-ink-600"><i class="fa-regular fa-receipt text-2xl block mb-2 opacity-30"></i>No history yet</td></tr>`;
+        return;
+    }
+    tbody.innerHTML = state.sessions.map(s => {
+        const date = new Date(s.startTime).toLocaleDateString('en-KE', { day:'numeric', month:'short', year:'2-digit' });
+        const statusBadge = s.status === 'completed'
+            ? '<span class="pill pill-lime" style="padding:2px 7px;font-size:9px">Paid</span>'
+            : '<span class="pill pill-amber" style="padding:2px 7px;font-size:9px">Partial</span>';
+        return `<tr class="border-t border-ink-800 hover:bg-ink-900/30">
+            <td class="px-4 py-3 text-ink-400">${date}</td>
+            <td class="px-4 py-3 text-paper-50 font-semibold">${getTaskName(s.taskId)}</td>
+            <td class="px-4 py-3 text-ink-400 hidden sm:table-cell">KES ${formatNum(s.rate)}</td>
+            <td class="px-4 py-3 text-ink-400">${s.elapsedHours}h</td>
+            <td class="px-4 py-3 text-lime-400 font-bold">KES ${formatNum(s.earned)}</td>
+            <td class="px-4 py-3">${statusBadge}</td>
+        </tr>`;
+    }).join('');
+}
+
+function exportHistory() {
+    if (state.sessions.length === 0) { toast('No history to export', 'warning'); return; }
+    const csv = 'Date,Task,Rate,Hours,Earned,Status\n' + state.sessions.map(s => {
+        const d = new Date(s.startTime).toLocaleDateString('en-KE');
+        return `${d},${getTaskName(s.taskId)},${s.rate},${s.elapsedHours},${s.earned},${s.status}`;
+    }).join('\n');
+    const blob = new Blob([csv], { type:'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'lishlabs_earnings.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+    toast('Exported to CSV', 'success');
+}
+
+// ─── INIT ───
+document.addEventListener('DOMContentLoaded', init);
+
+window.addEventListener('beforeunload', (e) => {
+    if (state.currentSession) {
+        e.preventDefault();
+        e.returnValue = 'You have an active shift. Leave anyway?';
+    }
+});
+
+// Click outside drawer to close
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeClockInDrawer();
+        if (state.currentSession) closeWorkspace();
+    }
+});
+</script>
+</body>
+</html>
